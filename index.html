@@ -66,6 +66,78 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
         .progress-bar { transition: width 0.4s ease-in-out; }
+
+        /* Offline safety fallback: these utility classes are required by the JS interactions.
+           They keep Quiz/Q&A hide-show logic working even if Tailwind CDN is unavailable. */
+        .hidden { display: none !important; }
+        .block { display: block !important; }
+        .invisible { visibility: hidden !important; }
+        .visible { visibility: visible !important; }
+        .opacity-0 { opacity: 0 !important; }
+        .opacity-100 { opacity: 1 !important; }
+
+        /* Objection FAQ pagination: kept in plain CSS so the red round arrows work offline too. */
+        #home-brand-btn {
+            background: transparent;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            color: inherit;
+        }
+        #home-brand-btn:hover {
+            color: #DC2626;
+        }
+
+        .objection-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .objection-nav-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 9999px;
+            border: 0;
+            background: #DC2626;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 12px rgba(220, 38, 38, 0.28);
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        .objection-nav-btn:hover:not(:disabled) {
+            background: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 18px rgba(220, 38, 38, 0.34);
+        }
+        .objection-nav-btn:active:not(:disabled) {
+            transform: scale(0.96);
+        }
+        .objection-nav-btn:focus-visible {
+            outline: 3px solid rgba(220, 38, 38, 0.35);
+            outline-offset: 3px;
+        }
+        .objection-nav-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        @media (max-width: 640px) {
+            .objection-pagination {
+                gap: 0.75rem;
+            }
+            .objection-nav-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
@@ -74,11 +146,10 @@
     <nav class="fixed w-full z-50 top-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-sm transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 flex items-center font-oswald text-xl font-bold tracking-wide">
-                    <a href="/" class="logo-wrapper" src="https://monnguyen88.github.io/asn-hub/" alt="logo ASN Vietnam">	
+                <button id="home-brand-btn" type="button" class="flex-shrink-0 flex items-center font-oswald text-xl font-bold tracking-wide bg-transparent border-0 p-0 cursor-pointer hover:text-asn-red transition-colors" aria-label="Về trang chủ">
                     <span class="text-asn-red mr-2"><i class="fa-solid fa-bolt"></i></span>
-                    ASN CORDY PROTEIN 80+ </a>
-                </div>
+                    ASN CORDY PROTEIN 80+
+                </button>
                 <div class="flex items-center gap-4">
                     <a href="#qa-section" class="hidden md:block text-sm font-semibold hover:text-asn-red transition-colors">Q&A</a>
                     <a href="#quiz-section" class="hidden md:block text-sm font-semibold hover:text-asn-red transition-colors">QUIZ</a>
@@ -332,8 +403,19 @@
             <h2 class="text-3xl font-bold font-oswald text-center mb-2 uppercase">Xử Lý Phản Đối (Objection Handling)</h2>
             <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Nhanh chóng tháo gỡ thắc mắc phổ biến của hội viên</p>
 
-            <div class="space-y-4" id="objection-accordion">
-                <!-- Objections will be populated by JS, structurally similar to below -->
+            <div id="objection-accordion" class="space-y-4">
+                <!-- 8 Objection FAQ items per page will be populated by JS -->
+            </div>
+
+            <div id="objection-pagination" class="objection-pagination mt-8">
+                <button id="objection-prev" type="button" class="objection-nav-btn" aria-label="Trang phản đối trước">&lt;</button>
+
+                <!-- <div id="objection-counter" class="text-center text-sm font-semibold text-gray-500 dark:text-gray-400 min-w-[140px]">
+                    <div>Trang <span id="objection-current-page">1</span>/<span id="objection-total-pages">1</span></div>
+                    <div id="objection-range" class="font-normal mt-1">Hiển thị 1-8/16 mục</div>
+                </div> -->
+
+                <button id="objection-next" type="button" class="objection-nav-btn" aria-label="Trang phản đối tiếp theo">&gt;</button>
             </div>
         </div>
     </section>
@@ -377,7 +459,7 @@
     <section id="quiz-section" class="py-16 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold font-oswald text-center mb-2 uppercase">Kiểm Tra Kiến Thức</h2>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-8">10 câu trắc nghiệm nhanh để tự tin tư vấn</p>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-8"><span id="quiz-total-intro">10</span> câu trắc nghiệm nhanh để tự tin tư vấn</p>
 
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
                 <!-- Progress -->
@@ -395,7 +477,7 @@
 
                     <!-- Quiz Area -->
                     <div id="quiz-area" class="hidden">
-                        <div class="mb-4 text-sm font-semibold text-gray-500 dark:text-gray-400">Câu <span id="current-q-num">1</span>/10</div>
+                        <div class="mb-4 text-sm font-semibold text-gray-500 dark:text-gray-400">Câu <span id="current-q-num">1</span>/<span id="quiz-total-count">10</span></div>
                         <h3 id="question-text" class="text-lg md:text-xl font-bold mb-6 font-oswald">Câu hỏi...</h3>
                         
                         <div id="options-container" class="space-y-3 mb-6">
@@ -512,7 +594,7 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        <!-- 1. DATA: OBJECTIONS -->
+        // --- 1. DATA: OBJECTIONS ---
         const objectionsData = [
             {
                 q: "Protein thực vật có đủ tốt để tăng cơ không?",
@@ -545,6 +627,38 @@
             {
                 q: "Người có bệnh nền có dùng được không?",
                 a: "Sản phẩm lành tính, không đường. NHƯNG với người có bệnh lý đặc biệt (thận mạn, gan nặng, ung thư, tiểu đường đang dùng thuốc), nguyên tắc là: Cần hỏi bác sĩ hoặc chuyên gia dinh dưỡng để biết khẩu phần đạm phù hợp trước khi dùng thường xuyên."
+            },
+            {
+                q: "Sản phẩm không đường thì có khó uống không?",
+                a: "Không. Sản phẩm được thiết kế để dễ uống hằng ngày nhưng vẫn không dùng đường kính. Khi tư vấn, hãy nhấn mạnh lợi ích kiểm soát vóc dáng, hạn chế nạp đường dư thừa và phù hợp khách đang eat clean."
+            },
+            {
+                q: "Pha có cặn dưới đáy thì có phải hàng lỗi không?",
+                a: "Không phải lỗi. Đạm thực vật dạng bột mịn có thể có độ lắng tự nhiên. Hướng dẫn khách dùng bình lắc, lắc kỹ và uống ngay sau khi pha. Việc có ít cặn không làm mất chất lượng sản phẩm."
+            },
+            {
+                q: "Người tiểu đường có dùng được không?",
+                a: "Sản phẩm không đường, nhưng khách tiểu đường đang điều trị vẫn nên hỏi bác sĩ hoặc chuyên gia dinh dưỡng để kiểm soát tổng khẩu phần đạm và năng lượng trong ngày. Không tư vấn thay thế thuốc hoặc phác đồ điều trị."
+            },
+            {
+                q: "Có thể dùng chung hoặc luân phiên với Whey không?",
+                a: "Có thể. Đây là lựa chọn luân phiên tốt cho ngày khách muốn nhẹ bụng, tránh lactose hoặc muốn thêm giá trị hỗ trợ sức bền từ Cordyceps. Không cần hạ thấp Whey, chỉ cần nói rõ điểm khác biệt của từng dòng."
+            },
+            {
+                q: "Uống trước tập hay sau tập tốt hơn?",
+                a: "Sau tập hoặc giữa các bữa là cách dùng dễ tư vấn nhất để bổ sung đạm và hỗ trợ phục hồi. Nếu khách thiếu đạm trong ngày, có thể dùng như bữa phụ. Quan trọng là tổng protein cả ngày, không chỉ thời điểm uống."
+            },
+            {
+                q: "Khách nói giá cao hơn bột đậu/bột ngũ cốc thì xử lý sao?",
+                a: "Giải thích rằng đây là protein isolate hàm lượng cao 80%+, không phải bột ngũ cốc nhiều tinh bột. Giá trị nằm ở lượng đạm rõ ràng, công thức đa nguồn, nhẹ bụng, không lactose và có thêm Cordyceps/Cordycepin."
+            },
+            {
+                q: "Người lớn tuổi dùng có phù hợp không?",
+                a: "Phù hợp với người lớn tuổi cần bổ sung đạm nhẹ bụng, không lactose và không đường. Tuy nhiên nếu có bệnh thận, gan, đang dùng thuốc hoặc có chỉ định dinh dưỡng riêng thì phải hỏi bác sĩ trước khi dùng đều."
+            },
+            {
+                q: "Phụ nữ sau sinh hoặc đang cho con bú có dùng được không?",
+                a: "Có thể quan tâm vì nhu cầu dinh dưỡng cao, nhưng nếu đang cho con bú hoặc vừa sinh, cần khuyến nghị hỏi bác sĩ trước khi dùng thường xuyên để đảm bảo phù hợp với cơ địa, khẩu phần và tình trạng sức khỏe."
             }
         ];
 
@@ -672,13 +786,43 @@
 
         // --- 4. RENDER FUNCTIONS & LOGIC ---
 
+        // Global UI state. These variables must be outside DOMContentLoaded because
+        // filterQA() and renderQAList() are attached to window and need to access them.
+        let activeFilter = 'all';
+        let currentSearchTerm = '';
+        let currentObjectionPage = 0;
+        const objectionsPerPage = 8;
+
+        // Safe storage helpers: avoid breaking the whole app if localStorage is blocked
+        // on file://, private mode, or a hosting environment with strict browser settings.
+        function getStorageItem(key) {
+            try {
+                return window.localStorage ? window.localStorage.getItem(key) : null;
+            } catch (err) {
+                return null;
+            }
+        }
+
+        function setStorageItem(key, value) {
+            try {
+                if (window.localStorage) window.localStorage.setItem(key, value);
+            } catch (err) {
+                // Ignore storage errors. Theme still toggles for the current session.
+            }
+        }
+
+        function escapeRegExp(text) {
+            return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Theme Toggle
             const themeBtn = document.getElementById('theme-toggle');
             const htmlTag = document.documentElement;
             
             // Check local storage or system preference
-            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            const savedTheme = getStorageItem('color-theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 htmlTag.classList.add('dark');
             } else {
                 htmlTag.classList.remove('dark');
@@ -687,9 +831,9 @@
             themeBtn.addEventListener('click', () => {
                 htmlTag.classList.toggle('dark');
                 if (htmlTag.classList.contains('dark')) {
-                    localStorage.setItem('color-theme', 'dark');
+                    setStorageItem('color-theme', 'dark');
                 } else {
-                    localStorage.setItem('color-theme', 'light');
+                    setStorageItem('color-theme', 'light');
                 }
             });
 
@@ -706,12 +850,18 @@
             });
             backToTopBtn.addEventListener('click', () => window.scrollTo(0, 0));
 
+            // Click brand/logo to reload the home page/top hero section.
+            const homeBrandBtn = document.getElementById('home-brand-btn');
+            if (homeBrandBtn) {
+                homeBrandBtn.addEventListener('click', goToHomePage);
+            }
+
             // Render Objections
-            renderObjections();
+            initObjectionPagination();
 
             // Render Q&A Logic
-            let activeFilter = 'all';
-            let currentSearchTerm = '';
+            activeFilter = 'all';
+            currentSearchTerm = '';
             
             renderQAFilters();
             renderQAList();
@@ -731,29 +881,107 @@
             });
 
             // Quiz Logic Init
+            const quizTotalIntro = document.getElementById('quiz-total-intro');
+            const quizTotalCount = document.getElementById('quiz-total-count');
+            if (quizTotalIntro) quizTotalIntro.innerText = quizData.length;
+            if (quizTotalCount) quizTotalCount.innerText = quizData.length;
             initQuiz();
         });
 
-        // --- OBJECTION HANDLING RENDER ---
+        // --- HOME NAVIGATION ---
+        function goToHomePage() {
+            const baseUrl = window.location.href.split('#')[0];
+
+            // Always reload the base URL so the user lands back on the home/hero section
+            // and any quiz/FAQ state is reset. Works on hosting and when opened as file://.
+            try {
+                window.history.replaceState(null, document.title, baseUrl);
+                window.location.reload();
+            } catch (err) {
+                window.location.href = baseUrl;
+            }
+        }
+
+        // --- OBJECTION HANDLING FAQ PAGINATION ---
+        function initObjectionPagination() {
+            const prevBtn = document.getElementById('objection-prev');
+            const nextBtn = document.getElementById('objection-next');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => changeObjectionPage(-1));
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => changeObjectionPage(1));
+            }
+
+            renderObjections();
+        }
+
+        function changeObjectionPage(direction) {
+            if (!objectionsData.length) return;
+
+            const totalPages = Math.max(1, Math.ceil(objectionsData.length / objectionsPerPage));
+            const nextPage = currentObjectionPage + direction;
+            currentObjectionPage = Math.min(Math.max(nextPage, 0), totalPages - 1);
+            renderObjections();
+        }
+
         function renderObjections() {
             const container = document.getElementById('objection-accordion');
-            let html = '';
-            objectionsData.forEach((obj, idx) => {
-                html += `
+            const currentPageEl = document.getElementById('objection-current-page');
+            const totalPagesEl = document.getElementById('objection-total-pages');
+            const rangeEl = document.getElementById('objection-range');
+            const prevBtn = document.getElementById('objection-prev');
+            const nextBtn = document.getElementById('objection-next');
+
+            if (!container) return;
+
+            const totalItems = objectionsData.length;
+            const totalPages = Math.max(1, Math.ceil(totalItems / objectionsPerPage));
+
+            if (currentObjectionPage > totalPages - 1) {
+                currentObjectionPage = totalPages - 1;
+            }
+
+            const start = currentObjectionPage * objectionsPerPage;
+            const end = Math.min(start + objectionsPerPage, totalItems);
+            const pageItems = objectionsData.slice(start, end);
+
+            if (currentPageEl) currentPageEl.innerText = currentObjectionPage + 1;
+            if (totalPagesEl) totalPagesEl.innerText = totalPages;
+            if (rangeEl) {
+                rangeEl.innerText = totalItems
+                    ? `Hiển thị ${start + 1}-${end}/${totalItems} mục`
+                    : 'Chưa có nội dung phản đối';
+            }
+
+            if (prevBtn) prevBtn.disabled = currentObjectionPage === 0;
+            if (nextBtn) nextBtn.disabled = currentObjectionPage >= totalPages - 1;
+
+            if (!pageItems.length) {
+                container.innerHTML = '<div class="text-center text-gray-500 dark:text-gray-400 py-6">Chưa có nội dung phản đối.</div>';
+                return;
+            }
+
+            // Keep the original 8-item FAQ listing style. Add more objects to objectionsData
+            // and the buttons below will show the next groups without reloading the page.
+            container.innerHTML = pageItems.map((obj, localIdx) => {
+                const itemNumber = start + localIdx + 1;
+                return `
                 <div class="accordion-item bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                    <button class="w-full text-left p-5 font-bold text-gray-900 dark:text-white flex justify-between items-center focus:outline-none" onclick="this.parentElement.classList.toggle('active')">
+                    <button type="button" class="w-full text-left p-5 font-bold text-gray-900 dark:text-white flex justify-between items-center focus:outline-none" onclick="this.parentElement.classList.toggle('active')">
                         <span class="flex items-start gap-3">
-                            <span class="text-asn-red shrink-0"><i class="fa-solid fa-comment-dots mt-1"></i></span>
+                            <span class="text-asn-red shrink-0 font-oswald">${itemNumber}.</span>
                             <span>${obj.q}</span>
                         </span>
                         <i class="fa-solid fa-chevron-down chevron transition-transform shrink-0 ml-4"></i>
                     </button>
                     <div class="accordion-content bg-gray-50 dark:bg-gray-700/50 px-5 pb-0 text-sm text-gray-700 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700">
-                        <p class="pb-5">${obj.a}</p>
+                        <p class="pb-5"><strong class="text-asn-red">Gợi ý trả lời:</strong> ${obj.a}</p>
                     </div>
                 </div>`;
-            });
-            container.innerHTML = html;
+            }).join('');
         }
 
         // --- Q&A RENDER ---
@@ -766,7 +994,7 @@
             container.innerHTML = html;
         }
 
-        window.filterQA = function(catId) {
+        function filterQA(catId) {
             // Update active state
             document.querySelectorAll('.qa-filter-btn').forEach(btn => {
                 if(btn.dataset.id === catId) {
@@ -780,16 +1008,16 @@
             // eslint-disable-next-line no-undef
             activeFilter = catId;
             renderQAList();
-        };
+        }
 
         function highlightText(text, keyword) {
-            if (!keyword.trim()) return text;
-            const regex = new RegExp(`(${keyword})`, 'gi');
+            const cleanKeyword = keyword.trim();
+            if (!cleanKeyword) return text;
+            const regex = new RegExp(`(${escapeRegExp(cleanKeyword)})`, 'gi');
             return text.replace(regex, '<mark>$1</mark>');
         }
 
-        // eslint-disable-next-line no-undef
-        window.renderQAList = function() {
+        function renderQAList() {
             const container = document.getElementById('qa-container');
             const noResult = document.getElementById('qa-no-result');
             
@@ -843,7 +1071,10 @@
                 </div>`;
             });
             container.innerHTML = html;
-        };
+        }
+
+        window.filterQA = filterQA;
+        window.renderQAList = renderQAList;
 
         // --- QUIZ LOGIC ---
         let currentQIndex = 0;

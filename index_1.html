@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASN Document & FAQ</title>
+  <style>
+    body {font-family: 'Roboto', sans-serif; margin:0; background:#f8fafc; color:#1a1a1a;}
+    header {display:flex; justify-content:space-between; align-items:center; padding:15px 40px; background:#fff; position:sticky; top:0; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,0.05);}    
+    .logo {font-weight:bold; font-size:18px;}
+    nav a {margin-left:20px; text-decoration:none; color:#000; font-weight:500;}
+
+    .banner {height:30px; background:#ddd; display:flex; align-items:center; justify-content:center;}
+
+    .container {max-width:1200px; margin:50px auto; padding:0 20px;}
+
+    h1 {margin-bottom:30px;}
+
+    /* SLIDER */
+    .slider { position: relative; margin-bottom: 30px; }
+    .slider img { width: 100%; border-radius: 12px; }
+    .slider-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.4); color: white; border: none;
+      width: 35px; height: 35px; border-radius: 50%; cursor: pointer;
+    }
+    .slider-btn.left {left: 10px;}
+    .slider-btn.right {right: 10px;}
+
+    /* DOC */
+    .doc-grid {display:grid; grid-template-columns:repeat(4,1fr); gap:25px;}
+    .doc-card {
+      background:white; border-radius:18px; padding:22px;
+      border:1px solid #e5e7eb; box-shadow:0 2px 6px rgba(0,0,0,0.03);
+      transition:.3s; justify-content:center;
+    }
+    .doc-card:hover {transform:translateY(-4px);}    
+
+    .icon {
+      width:45px; height:45px; display:flex; align-items:center; justify-content:center;
+      margin-bottom:12px; font-size:18px; color:#d60000;
+    }
+
+    /* FAQ */
+    .faq-grid {display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+    .faq-item {
+      background:#ffffff; padding:12px 16px; border-radius:10px; cursor:pointer;
+      border:1px solid #e5e7eb; box-shadow:0 2px 5px rgba(0,0,0,0.02);
+      transition:.2s;
+    }
+    .faq-item:hover {background:#fafafa;}
+
+    .faq-question {font-weight:500; display:flex; justify-content:space-between; align-items:center;}
+    .faq-answer {max-height:0; overflow:hidden; opacity:0; transition:.3s; margin-top:8px; font-size:14px; color:#555; text-align: justify; }
+    .faq-item.active .faq-answer {max-height:200px; opacity:1;}
+
+    .toggle-icon {transition:.3s; font-size:16px;}
+    .faq-item.active .toggle-icon {transform:rotate(45deg);}    
+
+    .faq-controls {display:flex; justify-content:center; gap:15px; margin-top:30px;}
+    .circle-btn {width:38px; height:38px; border-radius:50%; border:none; background:#d60000; color:white; font-size:16px; cursor:pointer;}
+    .circle-btn:disabled {background:#ccc;}
+
+    footer {text-align:center; padding:20px; color:#777;}
+
+    @media(max-width:900px){.doc-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:600px){.doc-grid,.faq-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- <div class="logo">ASN Vietnam</div> -->
+  
+  <a href="/" class="logo-wrapper ">	
+				<img class="img-fluid" src="https://bizweb.dktcdn.net/100/614/898/themes/1065334/assets/logo.png?1776832200966" alt="logo ASN Vietnam" width="85" >
+			</a>
+  <nav>
+    <a href="#doc">Tài liệu</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
+
+
+<div class="container">
+
+  <!-- DOC -->
+  <div id="doc">
+    <h1>ASN CORDY PROTEIN 80+</h1>
+
+    <!-- slider -->
+    <div class="slider">
+      <button class="slider-btn left" onclick="prevSlide()">&lt;</button>
+      <img id="sliderImg" src="//files/cordy_protein_80.png?v=1775205675933" />
+      <button class="slider-btn right" onclick="nextSlide()">&gt;</button>
+    </div>
+
+    <div class="doc-grid">
+      <div class="doc-card"><img src="https://raw.githubusercontent.com/monnguyen88/asn-hub/refs/heads/main/Document.png" width="50"> <h3>Giới thiệu</h3>
+	  <p>Thành phần chính<br>• 90% Bột protein đậu nành NON-GMO
+<br>• 3% Bột protein đậu hà lan NON-GMO
+<br>• 3% Bột protein gạo NON-GMO
+<br>• 3% Bột nấm đông trùng hạ thảo sấy thăng hoa</p></div>
+      <div class="doc-card"><img src="https://raw.githubusercontent.com/monnguyen88/asn-hub/refs/heads/main/howtouse.png" width="50"><h3>Cách sử dụng</h3><p>• Pha 10-30gram bột ASN Cordy Protein với 150-200ml nước nguội hoặc nước ấm tuỳ khẩu vị, khuấy đều và dùng ngay <br>• Uống giữa các bữa ăn hoặc sau khi tập luyện.</p></div>
+      <div class="doc-card"><img src="https://raw.githubusercontent.com/monnguyen88/asn-hub/refs/heads/main/CongDung.png" width="50"><h3>Công dụng</h3><p>• Hỗ trợ kiểm soát năng lượng nạp vào, phù hợp với người cần duy trì chỉ số cơ thể ổn định 
+	  <br>• Dược chất quý Cordycepin của nấm đông trùng hạ thảo có trong sản phẩm giúp tăng miễn dịch – tốt cho tiêu hóa – thần kinh – phục hồi bệnh.</p></div>
+      <div class="doc-card"><img src="https://raw.githubusercontent.com/monnguyen88/asn-hub/refs/heads/main/whouse.png" width="50"><h3>Đối tượng</h3>
+	  <p>• Người tập gym
+	  <br>• Người có nhu cầu quan tâm sức khoẻ
+	  <br>• Người ăn thuần chay/eatclean
+	  <br>• Người phục hồi sau bệnh
+	  <br>• Người suy nhược mệt mỏi
+	  <br>• Phụ nữ sau sinh.</p></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div id="faq" style="margin-top:70px">
+    <h1>Câu hỏi thường gặp</h1>
+    <div id="faq-container" class="faq-grid"></div>
+
+    <div class="faq-controls">
+      <button class="circle-btn" id="prevBtn">&lt;</button>
+      <button class="circle-btn" id="nextBtn">&gt;</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>© 2026 ASN Vietnam</footer>
+
+<script>
+const images = [
+  "https://raw.githubusercontent.com/monnguyen88/asn-hub/refs/heads/main/CordyProtein_1.png",
+  "https://raw.githubusercontent.com/monnguyen88/asn-hub/refs/heads/main/CordyProtein_2.png",
+  "https://raw.githubusercontent.com/monnguyen88/asn-hub/refs/heads/main/CordyProtein_3.png"
+];
+
+let current = 0;
+
+function showSlide(){
+  document.getElementById('sliderImg').src = images[current];
+}
+
+function nextSlide(){
+  current = (current + 1) % images.length;
+  showSlide();
+}
+
+function prevSlide(){
+  current = (current - 1 + images.length) % images.length;
+  showSlide();
+}
+
+// 👇 BẮT BUỘC có dòng này
+showSlide();
+
+// FAQ
+const faqs = [
+  {q:"Uống nhiều đạm đậu nành có gây “nữ hóa” ở nam giới không?", a:"Không có bằng chứng đáng tin cậy cho thấy việc dùng đạm đậu nành ở mức thông thường gây “nữ hóa” nam giới. Isoflavone trong đậu nành là phytoestrogen, có hoạt tính yếu hơn rất nhiều so với hormone estrogen của cơ thể. Khách hàng nam có thể yên tâm sử dụng theo khẩu phần khuyến nghị."},
+  {q:"Người có tiền sử bệnh ung thư có được uống đạm đậu nành không?", a:"Không nên mặc định kiêng đạm đậu nành, vì nhiều bằng chứng hiện nay cho thấy thực phẩm từ đậu nành ở mức vừa phải có thể an toàn trong chế độ ăn lành mạnh. Tuy nhiên, với khách hàng từng hoặc đang điều trị ung thư, đặc biệt nếu đang dùng thuốc, thuốc nội tiết hoặc có chế độ dinh dưỡng riêng, nên khuyến nghị họ hỏi bác sĩ điều trị trước khi sử dụng thường xuyên."},
+  {q:"Đạm thực vật có giải quyết được vấn đề dị ứng Lactose không?", a:"Có. ASN Cordy Protein 80+ là đạm thực vật, không phải đạm sữa, nên không chứa lactose. Đây là lựa chọn phù hợp hơn cho người thường bị đầy hơi, khó tiêu hoặc tiêu chảy khi dùng sữa/whey có lactose. Tuy nhiên, nếu khách có dị ứng đậu nành hoặc bệnh lý tiêu hóa đặc biệt, vẫn nên kiểm tra thành phần trước khi dùng."},
+  {q:"Tốc độ hấp thu của đạm thực vật chậm hơn đạm động vật thì có tốt không?", a:"Không hẳn. Whey thường hấp thu nhanh và phù hợp với một số mục tiêu tập luyện. Đạm thực vật có xu hướng nhẹ bụng, dễ dùng hằng ngày và ổn định hơn với nhiều người, đặc biệt là người khó dung nạp lactose hoặc muốn giảm phụ thuộc vào đạm sữa. Không nên nói whey “xấu” hay đạm thực vật “tốt hơn tuyệt đối”, mà nên tư vấn theo nhu cầu và cơ địa của từng khách hàng.Khi tuổi tăng lên, người dùng cần chú ý hơn đến khả năng tiêu hóa, lactose, bệnh nền thận/gan/tiểu đường... Với nhóm khách lớn tuổi hoặc nhạy tiêu hóa, đạm thực vật là một lựa chọn thay thế đáng cân nhắc"},
+  {q:"Sản phẩm có vị ngọt, vậy người bị tiểu đường có dùng được không?", a:"Sản phẩm phù hợp với người cần bổ sung protein hằng ngày, người tập luyện, người ăn chay hoặc giảm dùng đạm động vật, người không dung nạp lactose, người muốn lựa chọn đạm thực vật nhẹ bụng hơn. Với trẻ em, phụ nữ mang thai/cho con bú, người lớn tuổi có bệnh nền, người đang dùng thuốc hoặc người cần chế độ dinh dưỡng điều trị, nên tham khảo chuyên gia y tế."},
+  {q:"Có nên khuyên khách đang dùng whey đổi sang đạm thực vật không?", a:"Không nên chê bai whey hoặc ép khách đổi nếu họ đang dùng hợp cơ địa và có kết quả tốt. Cách tư vấn phù hợp là giới thiệu ASN Cordy Protein 80+ như một lựa chọn đạm thực vật khác biệt: không lactose, nhẹ bụng hơn với nhiều người, phù hợp bổ sung hằng ngày và có thể dùng thử để khách tự so sánh cảm nhận tiêu hóa, hương vị và mức độ phù hợp với nhu cầu cá nhân."},
+  {q:"Tại sao khi pha bột lại thấy có cặn/lắng xuống đáy?", a:"Một ít bột lắng đáy sau khi pha là hiện tượng thường gặp ở nhiều loại bột protein, đặc biệt là protein thực vật, do đặc tính độ hòa tan và kích thước hạt bột. Hiện tượng này không đồng nghĩa với tạp chất hay vỏ hạt còn sót lại nếu sản phẩm đã được sản xuất và kiểm soát chất lượng đúng tiêu chuẩn. Khuyến nghị khách lắc/khuấy kỹ, dùng shaker, uống sớm sau khi pha và có thể điều chỉnh lượng nước để dễ uống hơn."},
+  {q:"Protein thực vật có giúp tăng cơ không?", a:"Có, protein thực vật hoàn toàn có thể tăng cơ hiệu quả tương đương protein động vật nếu bạn tiêu thụ đủ lượng cần thiết và kết hợp luyện tập kháng lực phù hợp. ASN Cordy Protein còn cung cấp 18 acid amin thiết yếu và hàm lượng protein > 80%"},
+  {q:"So với liều dùng whey protein isolate thông thường, tổng EAA và BCAA thấp hơn bao nhiêu phần trăm?", a:"Một muỗng Cordy Protein 80+ 30 g cung cấp tổng EAA và BCAA có thấp hơn 1 ít nhưng 30 g Cordy vẫn cung cấp đủ EAA để kích hoạt tổng hợp cơ nếu tổng lượng protein trong ngày được đảm bảo."},
+  {q:"Cordyceps có tác động trực tiếp đến tăng cơ hay chỉ hỗ trợ chuyển hóa năng lượng và miễn dịch?", a:"Một số nghiên cứu lâm sàng cho thấy bổ sung Cordyceps có thể hỗ trợ cải thiện khả năng aerobic và độ bền khi dùng ở liều phù hợp trong thời gian dài."},
+  {q:"Uống sản phẩm này có gây nóng trong, nổi mụn không?", a:"Ít có khả năng. Protein thực vật (đậu nành, gạo) thường lành tính hơn whey protein từ sữa (vốn dễ gây mụn do hormone và lactose). Ngoài ra, sản phẩm có đông trùng hạ thảo hỗ trợ thanh lọc cơ thể."},
+  {q:"Mùi vị có dễ uống không?", a:"Sản phẩm dùng cỏ ngọt (tạo ngọt tự nhiên, không calo) nên sẽ có vị ngọt thanh nhẹ, không gắt như đường hóa học."},
+  {q:"Sản phẩm có phù hợp với người ăn chay/thuần chay không?", a:"Rất phù hợp. Thành phần hoàn toàn từ thực vật (đậu nành, gạo, đông trùng hạ thảo) và không chứa thành phần động vật."},
+  {q:"Chỉ số DIAAS của protein isolate trong sản phẩm là bao nhiêu?", a:"DIAAS ≈ 0.85 – 0.90"},
+
+];
+
+let page = 0;
+const perPage = 10;
+
+function renderFAQ() {
+  const container = document.getElementById('faq-container');
+  container.innerHTML = '';
+
+  const start = page * perPage;
+  const items = faqs.slice(start, start + perPage);
+
+  items.forEach(faq => {
+    const div = document.createElement('div');
+    div.className = 'faq-item';
+
+    div.innerHTML = `
+      <div class="faq-question">
+        ${faq.q}
+        <span class="toggle-icon">+</span>
+      </div>
+      <div class="faq-answer">${faq.a}</div>
+    `;
+
+    div.onclick = () => div.classList.toggle('active');
+    container.appendChild(div);
+  });
+
+  document.getElementById('prevBtn').disabled = page === 0;
+  document.getElementById('nextBtn').disabled = start + perPage >= faqs.length;
+}
+
+document.getElementById('prevBtn').onclick = () => { page--; renderFAQ(); };
+document.getElementById('nextBtn').onclick = () => { page++; renderFAQ(); };
+
+renderFAQ();
+</script>
+
+</body>
+</html>

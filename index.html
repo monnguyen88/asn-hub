@@ -84,10 +84,19 @@
                         <button id="lang-vi" type="button" class="lang-btn active" data-lang="vi">VN</button>
                         <button id="lang-en" type="button" class="lang-btn" data-lang="en">EN</button>
                     </div>
-                    <button id="theme-toggle" type="button" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Đổi giao diện sáng/tối">
-                        <i class="fa-solid fa-sun text-yellow-400 dark:hidden"></i>
-                        <i class="fa-solid fa-moon hidden dark:block text-blue-200"></i>
-                    </button>
+                   <!-- <button id="theme-toggle" type="button" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Đổi giao diện sáng/tối">
+                        <!-- <i class="fa-solid fa-sun text-yellow-400 dark:hidden"></i>
+                        <i class="fa-solid fa-moon hidden dark:block text-blue-200"></i> 
+						
+                    </button> -->
+					
+					<button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+    <!-- Light mode: hiện mặt trăng -->
+    <i class="fa-solid fa-moon block dark:hidden text-yellow-400"></i>
+
+    <!-- Dark mode: hiện mặt trời -->
+    <i class="fa-solid fa-sun hidden dark:block text-yellow-400"></i>
+</button>
                 </div>
             </div>
         </div>
@@ -142,7 +151,7 @@
             <div id="objection-accordion" class="space-y-4"></div>
             <div id="objection-pagination" class="objection-pagination mt-8">
                 <button id="objection-prev" type="button" class="objection-nav-btn" aria-label="Trang phản đối trước">&lt;</button>
-                <!--<div id="objection-counter" class="text-center text-sm font-semibold text-gray-500 dark:text-gray-400 min-w-[140px]">
+              <!--  <div id="objection-counter" class="text-center text-sm font-semibold text-gray-500 dark:text-gray-400 min-w-[140px]">
                     <div><span id="objection-page-label">Trang</span> <span id="objection-current-page">1</span>/<span id="objection-total-pages">1</span></div>
                     <div id="objection-range" class="font-normal mt-1"></div>
                 </div> -->

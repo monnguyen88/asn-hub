@@ -1,19 +1,13 @@
 <!DOCTYPE html>
-<html lang="vi" class="light">
+<html lang="vi" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASN Cordy Protein 80+ | Sales & PT Training Hub</title>
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -25,50 +19,28 @@
                         oswald: ['Oswald', 'sans-serif'],
                     },
                     colors: {
-                        asn: {
-                            red: '#DC2626',
-                            dark: '#111827',
-                            gray: '#F3F4F6'
-                        }
+                        asn: { red: '#DC2626', dark: '#111827', gray: '#F3F4F6' }
                     }
                 }
             }
         }
     </script>
-
     <style>
-        /* Custom Styles for smooth interactions */
         body { font-family: 'Barlow', sans-serif; scroll-behavior: smooth; }
         h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Oswald', sans-serif; }
-        
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-        }
-        .accordion-item.active .accordion-content {
-            max-height: 1000px; /* Arbitrary large number */
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-        .accordion-item.active .chevron {
-            transform: rotate(180deg);
-        }
-        
-        mark { background-color: rgba(220, 38, 38, 0.2); color: inherit; font-weight: 600; padding: 0 2px; border-radius: 2px;}
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease; }
+        .accordion-item.active .accordion-content { max-height: 1000px; padding-top: 1rem; padding-bottom: 1rem; }
+        .accordion-item.active .chevron { transform: rotate(180deg); }
+        mark { background-color: rgba(220, 38, 38, 0.2); color: inherit; font-weight: 600; padding: 0 2px; border-radius: 2px; }
         .dark mark { background-color: rgba(220, 38, 38, 0.4); color: white; }
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         .dark ::-webkit-scrollbar-track { background: #1f2937; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
         .progress-bar { transition: width 0.4s ease-in-out; }
 
-        /* Offline safety fallback: these utility classes are required by the JS interactions.
-           They keep Quiz/Q&A hide-show logic working even if Tailwind CDN is unavailable. */
+        /* Offline safety fallback: required by JS interactions if Tailwind CDN is unavailable. */
         .hidden { display: none !important; }
         .block { display: block !important; }
         .invisible { visibility: hidden !important; }
@@ -76,768 +48,262 @@
         .opacity-0 { opacity: 0 !important; }
         .opacity-100 { opacity: 1 !important; }
 
-        /* Objection FAQ pagination: kept in plain CSS so the red round arrows work offline too. */
-        #home-brand-btn {
-            background: transparent;
-            border: 0;
-            padding: 0;
-            cursor: pointer;
-            color: inherit;
-        }
-        #home-brand-btn:hover {
-            color: #DC2626;
-        }
+        #home-brand-btn { background: transparent; border: 0; padding: 0; cursor: pointer; color: inherit; }
+        #home-brand-btn:hover { color: #DC2626; }
+        .lang-switch { display: inline-flex; align-items: center; border: 1px solid rgba(148, 163, 184, 0.65); border-radius: 9999px; padding: 2px; gap: 2px; background: rgba(255,255,255,0.55); }
+        .dark .lang-switch { background: rgba(31,41,55,0.72); border-color: rgba(75,85,99,0.9); }
+        .lang-btn { border: 0; border-radius: 9999px; padding: 5px 9px; font-size: 12px; font-weight: 800; line-height: 1; background: transparent; color: #64748b; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+        .dark .lang-btn { color: #cbd5e1; }
+        .lang-btn.active { background: #DC2626; color: #fff; box-shadow: 0 6px 14px rgba(220,38,38,0.25); }
+        .lang-btn:active { transform: scale(0.96); }
 
-        .objection-pagination {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
-        .objection-nav-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 9999px;
-            border: 0;
-            background: #DC2626;
-            color: #fff;
-            font-size: 22px;
-            font-weight: 800;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 10px 12px rgba(220, 38, 38, 0.28);
-            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-        }
-        .objection-nav-btn:hover:not(:disabled) {
-            background: #b91c1c;
-            transform: translateY(-1px);
-            box-shadow: 0 14px 18px rgba(220, 38, 38, 0.34);
-        }
-        .objection-nav-btn:active:not(:disabled) {
-            transform: scale(0.96);
-        }
-        .objection-nav-btn:focus-visible {
-            outline: 3px solid rgba(220, 38, 38, 0.35);
-            outline-offset: 3px;
-        }
-        .objection-nav-btn:disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+        .objection-pagination { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .objection-nav-btn { width: 48px; height: 48px; border-radius: 9999px; border: 0; background: #DC2626; color: #fff; font-size: 28px; font-weight: 800; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 22px rgba(220, 38, 38, 0.28); transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; }
+        .objection-nav-btn:hover:not(:disabled) { background: #b91c1c; transform: translateY(-1px); box-shadow: 0 14px 28px rgba(220, 38, 38, 0.34); }
+        .objection-nav-btn:active:not(:disabled) { transform: scale(0.96); }
+        .objection-nav-btn:focus-visible, .lang-btn:focus-visible, #theme-toggle:focus-visible, #home-brand-btn:focus-visible { outline: 3px solid rgba(220, 38, 38, 0.35); outline-offset: 3px; }
+        .objection-nav-btn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
         @media (max-width: 640px) {
-            .objection-pagination {
-                gap: 0.75rem;
-            }
-            .objection-nav-btn {
-                width: 42px;
-                height: 42px;
-                font-size: 24px;
-            }
+            .objection-pagination { gap: 0.75rem; }
+            .objection-nav-btn { width: 42px; height: 42px; font-size: 24px; }
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
-
-    <!-- Navigation / Header -->
     <nav class="fixed w-full z-50 top-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-sm transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <button id="home-brand-btn" type="button" class="flex-shrink-0 flex items-center font-oswald text-xl font-bold tracking-wide bg-transparent border-0 p-0 cursor-pointer hover:text-asn-red transition-colors" aria-label="Về trang chủ">
+            <div class="flex justify-between items-center h-16 gap-3">
+                <button id="home-brand-btn" type="button" class="flex-shrink-0 flex items-center font-oswald text-base sm:text-xl font-bold tracking-wide bg-transparent border-0 p-0 cursor-pointer hover:text-asn-red transition-colors" aria-label="Về trang chủ">
                     <span class="text-asn-red mr-2"><i class="fa-solid fa-bolt"></i></span>
-                    ASN CORDY PROTEIN 80+
+                    <span>ASN CORDY PROTEIN 80+</span>
                 </button>
-                <div class="flex items-center gap-4">
-                    <a href="#qa-section" class="hidden md:block text-sm font-semibold hover:text-asn-red transition-colors">Q&A</a>
-                    <a href="#quiz-section" class="hidden md:block text-sm font-semibold hover:text-asn-red transition-colors">QUIZ</a>
-                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                        <i class="fa-solid fa-moon dark:hidden"></i>
-                        <i class="fa-solid fa-sun hidden dark:block text-yellow-400"></i>
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <a id="nav-qa" href="#qa-section" class="hidden md:block text-sm font-semibold hover:text-asn-red transition-colors">Q&A</a>
+                    <a id="nav-quiz" href="#quiz-section" class="hidden md:block text-sm font-semibold hover:text-asn-red transition-colors">QUIZ</a>
+                    <div id="language-toggle" class="lang-switch" role="group" aria-label="Đổi ngôn ngữ">
+                        <button id="lang-vi" type="button" class="lang-btn active" data-lang="vi">VN</button>
+                        <button id="lang-en" type="button" class="lang-btn" data-lang="en">EN</button>
+                    </div>
+                    <button id="theme-toggle" type="button" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Đổi giao diện sáng/tối">
+                        <i class="fa-solid fa-sun text-yellow-400 dark:hidden"></i>
+                        <i class="fa-solid fa-moon hidden dark:block text-blue-200"></i>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- 1. HERO SECTION -->
     <header class="pt-24 pb-12 md:pt-32 md:pb-20 bg-gradient-to-br from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 relative overflow-hidden">
-        <!-- Abstract Shapes -->
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-red-100 dark:bg-red-900/20 blur-3xl opacity-50"></div>
-        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold font-oswald text-gray-900 dark:text-white uppercase tracking-tight mb-4">
-                ASN Cordy <span class="text-asn-red">Protein 80+</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 font-medium max-w-2xl mx-auto">
-                Hiểu đúng sản phẩm – Tư vấn tự tin – Bứt phá doanh số Supplement
-            </p>
-            
-            <div class="flex flex-wrap justify-center gap-3 mb-10">
-                <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700 text-sm font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-leaf text-green-500"></i> Plant Protein 80%+
-                </span>
-                <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700 text-sm font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-feather text-blue-400"></i> Dễ tiêu hóa
-                </span>
-                <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700 text-sm font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-ban text-red-400"></i> Không đường
-                </span>
-                <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700 text-sm font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-dna text-purple-500"></i> Cordyceps / Cordycepin
-                </span>
-            </div>
-
+            <h1 id="hero-title" class="text-4xl md:text-6xl font-bold font-oswald text-gray-900 dark:text-white uppercase tracking-tight mb-4"></h1>
+            <p id="hero-subtitle" class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 font-medium max-w-2xl mx-auto"></p>
+            <div id="hero-pills" class="flex flex-wrap justify-center gap-3 mb-10"></div>
             <div class="p-4 md:p-6 bg-red-50 dark:bg-red-900/10 border-l-4 border-asn-red rounded-r-lg max-w-4xl mx-auto text-left mb-8">
-                <p class="text-gray-800 dark:text-gray-200 text-sm md:text-base leading-relaxed">
-                    <strong>Định vị chuẩn:</strong> “ASN Cordy Protein 80+ là đạm thực vật isolate hàm lượng cao 80+, tổng hợp từ nhiều nguồn đạm để tối ưu acid amin, không lactose, nhẹ bụng, và có thêm Đông trùng hạ thảo/Cordycepin để hỗ trợ sức bền, phục hồi và thể trạng tổng thể.”
-                </p>
+                <p id="hero-position" class="text-gray-800 dark:text-gray-200 text-sm md:text-base leading-relaxed"></p>
             </div>
-
-            <div class="flex justify-center gap-4">
-                <a href="#qa-section" class="px-6 py-3 bg-asn-red text-white font-bold rounded hover:bg-red-700 transition-colors shadow-lg">
-                    Tra cứu Q&A
-                </a>
-                <a href="#quiz-section" class="px-6 py-3 bg-gray-800 dark:bg-gray-700 text-white font-bold rounded hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors shadow-lg">
-                    Làm Quiz Ôn Tập
-                </a>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a id="hero-cta-qa" href="#qa-section" class="px-6 py-3 bg-asn-red text-white font-bold rounded hover:bg-red-700 transition-colors shadow-lg"></a>
+                <a id="hero-cta-quiz" href="#quiz-section" class="px-6 py-3 bg-gray-800 dark:bg-gray-700 text-white font-bold rounded hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors shadow-lg"></a>
             </div>
         </div>
     </header>
 
-    <!-- 2. PRODUCT OVERVIEW -->
     <section class="py-16 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold font-oswald text-center mb-10 uppercase">Tổng quan sản phẩm</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 text-asn-red rounded-full flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-jar"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2 font-oswald">Là gì?</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Đạm thực vật Isolate hàm lượng cao (80%+). Không phải bột đậu hay bột ngũ cốc phổ thông nhiều tinh bột.</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 text-asn-red rounded-full flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-code-compare"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2 font-oswald">Khác biệt?</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Tổng hợp đa nguồn đạm (Pea, Rice, Soy) tối ưu acid amin + Bổ sung Cordycepin từ Đông trùng hạ thảo.</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 text-asn-red rounded-full flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-calendar-day"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2 font-oswald">Dùng hằng ngày?</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Không đường, không lactose, cực kỳ nhẹ bụng. Lý tưởng làm bữa phụ bổ sung đạm lâu dài mà không ngán.</p>
-                </div>
-                <!-- Card 4 -->
-                <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 text-asn-red rounded-full flex items-center justify-center mb-4 text-xl">
-                        <i class="fa-solid fa-dumbbell"></i>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2 font-oswald">Tư vấn tại Gym?</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">Giải pháp thay thế/luân phiên hoàn hảo cho khách đầy bụng khi uống Whey, hoặc khách muốn ăn uống "clean" hơn.</p>
-                </div>
-            </div>
+            <h2 id="overview-title" class="text-3xl font-bold font-oswald text-center mb-10 uppercase"></h2>
+            <div id="overview-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </div>
     </section>
 
-    <!-- 3. VALUE BUILDING SECTION -->
     <section class="py-16 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold font-oswald text-center mb-4 uppercase">5 Giá trị cốt lõi</h2>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-10">Vũ khí để Sales/PT thuyết phục khách hàng</p>
-            
-            <div class="space-y-4 max-w-4xl mx-auto">
-                <!-- Item 1 -->
-                <div class="flex bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border-l-4 border-asn-red">
-                    <div class="mr-4 mt-1 text-asn-red text-xl"><i class="fa-solid fa-check-circle"></i></div>
-                    <div>
-                        <h4 class="font-bold font-oswald text-lg">1. Protein 80%+</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Hàm lượng cao, hỗ trợ bổ sung đạm chất lượng, giúp dễ dàng tính toán macro cho người tập.</p>
-                    </div>
-                </div>
-                <!-- Item 2 -->
-                <div class="flex bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border-l-4 border-asn-red">
-                    <div class="mr-4 mt-1 text-asn-red text-xl"><i class="fa-solid fa-check-circle"></i></div>
-                    <div>
-                        <h4 class="font-bold font-oswald text-lg">2. Plant-based Protein Blend</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Tổng hợp từ Pea (Đậu Hà Lan) + Rice (Gạo) + Soy (Đậu nành) giúp bù trừ, tạo hồ sơ acid amin cân bằng hơn đạm đơn nguồn.</p>
-                    </div>
-                </div>
-                <!-- Item 3 -->
-                <div class="flex bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border-l-4 border-asn-red">
-                    <div class="mr-4 mt-1 text-asn-red text-xl"><i class="fa-solid fa-check-circle"></i></div>
-                    <div>
-                        <h4 class="font-bold font-oswald text-lg">3. Cordyceps / Cordycepin</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Điểm sáng khác biệt. Không chỉ bổ sung đạm mà còn hỗ trợ sức bền, giảm mệt mỏi và phục hồi thể trạng.</p>
-                    </div>
-                </div>
-                <!-- Item 4 -->
-                <div class="flex bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border-l-4 border-asn-red">
-                    <div class="mr-4 mt-1 text-asn-red text-xl"><i class="fa-solid fa-check-circle"></i></div>
-                    <div>
-                        <h4 class="font-bold font-oswald text-lg">4. Không Đường</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Sử dụng chất tạo ngọt an toàn, phù hợp kiểm soát vóc dáng, cân nặng và lối sống lành mạnh.</p>
-                    </div>
-                </div>
-                <!-- Item 5 -->
-                <div class="flex bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border-l-4 border-asn-red">
-                    <div class="mr-4 mt-1 text-asn-red text-xl"><i class="fa-solid fa-check-circle"></i></div>
-                    <div>
-                        <h4 class="font-bold font-oswald text-lg">5. Dễ Tiêu Hóa / Không Lactose</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Khắc phục điểm yếu đầy hơi, nổi mụn của Whey/Sữa bò. Dạ dày êm ái, hấp thu nhẹ nhàng.</p>
-                    </div>
-                </div>
-            </div>
+            <h2 id="values-title" class="text-3xl font-bold font-oswald text-center mb-4 uppercase"></h2>
+            <p id="values-subtitle" class="text-center text-gray-600 dark:text-gray-400 mb-10"></p>
+            <div id="values-list" class="space-y-4 max-w-4xl mx-auto"></div>
         </div>
     </section>
 
-    <!-- 4. CUSTOMER PROFILES -->
     <section class="py-16 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold font-oswald text-center mb-10 uppercase">5 Nhóm Khách Hàng Trọng Tâm</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                
-                <!-- Profile 1 -->
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600 flex flex-col h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-red-600 text-white rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-person-running"></i></div>
-                        <h3 class="font-bold font-oswald text-xl text-gray-900 dark:text-white">Người Tập Gym, Eat Clean</h3>
-                    </div>
-                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4 flex-grow list-disc pl-5">
-                        <li>Cần protein chất lượng để giữ/tăng cơ.</li>
-                        <li>Muốn kiểm soát vóc dáng, ăn uống clean.</li>
-                        <li>Có thể không hợp Whey, muốn nhẹ bụng.</li>
-                    </ul>
-                    <div class="p-3 bg-red-50 dark:bg-gray-800 rounded text-sm italic border-l-2 border-asn-red mt-auto">
-                        "Bổ sung đạm thực vật hàm lượng cao, nhẹ bụng, hỗ trợ phục hồi và duy trì vóc dáng khi kết hợp tập luyện."
-                    </div>
-                </div>
-
-                <!-- Profile 2 -->
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600 flex flex-col h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-orange-500 text-white rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-battery-half"></i></div>
-                        <h3 class="font-bold font-oswald text-xl text-gray-900 dark:text-white">Suy Nhược, Mệt Mỏi</h3>
-                    </div>
-                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4 flex-grow list-disc pl-5">
-                        <li>Ăn uống thiếu chất, thiếu đạm.</li>
-                        <li>Căng thẳng, hay mệt do công việc/vận động.</li>
-                        <li>Cần dinh dưỡng tiện lợi, quan tâm sức bền.</li>
-                    </ul>
-                    <div class="p-3 bg-red-50 dark:bg-gray-800 rounded text-sm italic border-l-2 border-asn-red mt-auto">
-                        "Bổ sung protein + Cordycepin hỗ trợ sức bền và phục hồi. Dùng đều hằng ngày, không phải chất kích thích tức thì."
-                    </div>
-                </div>
-
-                <!-- Profile 3 -->
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600 flex flex-col h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-person-cane"></i></div>
-                        <h3 class="font-bold font-oswald text-xl text-gray-900 dark:text-white">Người Cao Tuổi</h3>
-                    </div>
-                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4 flex-grow list-disc pl-5">
-                        <li>Cần đạm duy trì khối cơ, thể trạng.</li>
-                        <li>Hệ tiêu hóa kém, cần sản phẩm nhẹ bụng.</li>
-                        <li>Ưu tiên ít/không đường, an toàn.</li>
-                    </ul>
-                    <div class="p-3 bg-red-50 dark:bg-gray-800 rounded text-sm italic border-l-2 border-asn-red mt-auto">
-                        "Lựa chọn đạm nhẹ bụng, không lactose hỗ trợ thể trạng. (Bệnh lý nền cần hỏi bác sĩ)."
-                    </div>
-                </div>
-
-                <!-- Profile 4 -->
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600 flex flex-col h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-green-500 text-white rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <h3 class="font-bold font-oswald text-xl text-gray-900 dark:text-white">Phục Hồi Sau Bệnh</h3>
-                    </div>
-                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4 flex-grow list-disc pl-5">
-                        <li>Khẩu phần ăn chưa đủ đạm do mệt mỏi.</li>
-                        <li>Cần protein hỗ trợ phục hồi mô/cơ.</li>
-                        <li>Cần sản phẩm dễ uống, dễ tiêu.</li>
-                    </ul>
-                    <div class="p-3 bg-red-50 dark:bg-gray-800 rounded text-sm italic border-l-2 border-asn-red mt-auto">
-                        "Hỗ trợ bổ sung protein phục hồi thể trạng khi ăn kém. (Đang điều trị thuốc cần hỏi bác sĩ)."
-                    </div>
-                </div>
-
-                <!-- Profile 5 -->
-                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600 flex flex-col h-full md:col-span-2 lg:col-span-1">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-pink-500 text-white rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-person-breastfeeding"></i></div>
-                        <h3 class="font-bold font-oswald text-xl text-gray-900 dark:text-white">Phụ Nữ Sau Sinh</h3>
-                    </div>
-                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4 flex-grow list-disc pl-5">
-                        <li>Cần đạm phục hồi vóc dáng, da/tóc.</li>
-                        <li>Cần nguồn dinh dưỡng tiện lợi.</li>
-                        <li>Thận trọng thành phần khi cho con bú.</li>
-                    </ul>
-                    <div class="p-3 bg-red-50 dark:bg-gray-800 rounded text-sm italic border-l-2 border-asn-red mt-auto">
-                        "Hỗ trợ lấy lại vóc dáng, thể trạng. (Đang cho con bú nên tham khảo ý kiến bác sĩ trước)."
-                    </div>
-                </div>
-            </div>
-
-            <!-- Safety Note -->
+            <h2 id="profiles-title" class="text-3xl font-bold font-oswald text-center mb-10 uppercase"></h2>
+            <div id="profiles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10"></div>
             <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-5 text-center max-w-3xl mx-auto">
-                <h4 class="font-bold text-yellow-800 dark:text-yellow-500 mb-2 flex justify-center items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> LƯU Ý TƯ VẤN AN TOÀN</h4>
-                <p class="text-sm text-yellow-800 dark:text-yellow-200">
-                    ASN Cordy Protein 80+ là <strong>thực phẩm bổ sung protein, không phải thuốc và không thay thế điều trị y tế</strong>. Với khách hàng đang có bệnh lý, đang dùng thuốc, phụ nữ mang thai/cho con bú hoặc có chỉ định dinh dưỡng đặc biệt, luôn khuyến nghị hỏi bác sĩ/chuyên gia trước khi dùng thường xuyên.
-                </p>
+                <h4 id="safety-title" class="font-bold text-yellow-800 dark:text-yellow-500 mb-2 flex justify-center items-center gap-2"></h4>
+                <p id="safety-body" class="text-sm text-yellow-800 dark:text-yellow-200"></p>
             </div>
         </div>
     </section>
 
-    <!-- 5. OBJECTION HANDLING -->
     <section class="py-16 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold font-oswald text-center mb-2 uppercase">Xử Lý Phản Đối (Objection Handling)</h2>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-8">Nhanh chóng tháo gỡ thắc mắc phổ biến của hội viên</p>
-
-            <div id="objection-accordion" class="space-y-4">
-                <!-- 8 Objection FAQ items per page will be populated by JS -->
-            </div>
-
+            <h2 id="objection-title" class="text-3xl font-bold font-oswald text-center mb-2 uppercase"></h2>
+            <p id="objection-subtitle" class="text-center text-gray-600 dark:text-gray-400 mb-8"></p>
+            <div id="objection-accordion" class="space-y-4"></div>
             <div id="objection-pagination" class="objection-pagination mt-8">
                 <button id="objection-prev" type="button" class="objection-nav-btn" aria-label="Trang phản đối trước">&lt;</button>
-
-                <!-- <div id="objection-counter" class="text-center text-sm font-semibold text-gray-500 dark:text-gray-400 min-w-[140px]">
-                    <div>Trang <span id="objection-current-page">1</span>/<span id="objection-total-pages">1</span></div>
-                    <div id="objection-range" class="font-normal mt-1">Hiển thị 1-8/16 mục</div>
-                </div> -->
-
+                <div id="objection-counter" class="text-center text-sm font-semibold text-gray-500 dark:text-gray-400 min-w-[140px]">
+                    <div><span id="objection-page-label">Trang</span> <span id="objection-current-page">1</span>/<span id="objection-total-pages">1</span></div>
+                    <div id="objection-range" class="font-normal mt-1"></div>
+                </div>
                 <button id="objection-next" type="button" class="objection-nav-btn" aria-label="Trang phản đối tiếp theo">&gt;</button>
             </div>
         </div>
     </section>
 
-    <!-- 6. INTERACTIVE Q&A -->
     <section id="qa-section" class="py-16 bg-white dark:bg-gray-800">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold font-oswald text-center mb-8 uppercase text-asn-red">Ngân Hàng Q&A Chuyên Sâu</h2>
-            
-            <!-- Controls -->
+            <h2 id="qa-title" class="text-3xl font-bold font-oswald text-center mb-8 uppercase text-asn-red"></h2>
             <div class="mb-8">
                 <div class="relative mb-6">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                        <i class="fa-solid fa-search"></i>
-                    </span>
-                    <input type="text" id="qa-search" placeholder="Nhập từ khóa cần tìm (VD: tiểu đường, whey, cách pha...)" class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-asn-red transition-shadow">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fa-solid fa-search"></i></span>
+                    <input type="text" id="qa-search" placeholder="" class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-asn-red transition-shadow">
                 </div>
-
-                <div class="flex flex-wrap gap-2 mb-4" id="qa-filters">
-                    <!-- Filter buttons injected by JS -->
-                </div>
-
+                <div class="flex flex-wrap gap-2 mb-4" id="qa-filters"></div>
                 <div class="flex justify-end gap-4 border-b border-gray-200 dark:border-gray-700 pb-4">
-                    <button id="btn-expand-all" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-asn-red dark:hover:text-asn-red transition">Mở tất cả <i class="fa-solid fa-angle-down"></i></button>
-                    <button id="btn-collapse-all" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-asn-red dark:hover:text-asn-red transition">Thu gọn <i class="fa-solid fa-angle-up"></i></button>
+                    <button id="btn-expand-all" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-asn-red dark:hover:text-asn-red transition"><span id="btn-expand-all-text"></span> <i class="fa-solid fa-angle-down"></i></button>
+                    <button id="btn-collapse-all" class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-asn-red dark:hover:text-asn-red transition"><span id="btn-collapse-all-text"></span> <i class="fa-solid fa-angle-up"></i></button>
                 </div>
             </div>
-
-            <!-- Q&A List -->
-            <div class="space-y-3" id="qa-container">
-                <!-- Q&A items injected by JS -->
-            </div>
-            
-            <div id="qa-no-result" class="hidden text-center py-8 text-gray-500 dark:text-gray-400">
-                Không tìm thấy kết quả phù hợp. Vui lòng thử từ khóa khác.
-            </div>
+            <div class="space-y-3" id="qa-container"></div>
+            <div id="qa-no-result" class="hidden text-center py-8 text-gray-500 dark:text-gray-400"></div>
         </div>
     </section>
 
-    <!-- 7. MINI QUIZ -->
     <section id="quiz-section" class="py-16 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold font-oswald text-center mb-2 uppercase">Kiểm Tra Kiến Thức</h2>
-            <p class="text-center text-gray-600 dark:text-gray-400 mb-8"><span id="quiz-total-intro">10</span> câu trắc nghiệm nhanh để tự tin tư vấn</p>
-
+            <h2 id="quiz-title" class="text-3xl font-bold font-oswald text-center mb-2 uppercase"></h2>
+            <p id="quiz-subtitle" class="text-center text-gray-600 dark:text-gray-400 mb-8"></p>
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700">
-                <!-- Progress -->
-                <div class="w-full bg-gray-200 dark:bg-gray-700 h-2">
-                    <div id="quiz-progress" class="bg-asn-red h-2 progress-bar" style="width: 0%"></div>
-                </div>
-
+                <div class="w-full bg-gray-200 dark:bg-gray-700 h-2"><div id="quiz-progress" class="bg-asn-red h-2 progress-bar" style="width: 0%"></div></div>
                 <div class="p-6 md:p-8">
-                    <!-- Intro Screen -->
                     <div id="quiz-intro" class="text-center block">
                         <i class="fa-solid fa-brain text-5xl text-gray-400 mb-4"></i>
-                        <h3 class="text-xl font-bold mb-4">Sẵn sàng ôn tập?</h3>
-                        <button id="start-quiz-btn" class="px-8 py-3 bg-asn-red text-white font-bold rounded shadow hover:bg-red-700 transition">Bắt Đầu Test</button>
+                        <h3 id="quiz-intro-title" class="text-xl font-bold mb-4"></h3>
+                        <button id="start-quiz-btn" class="px-8 py-3 bg-asn-red text-white font-bold rounded shadow hover:bg-red-700 transition"></button>
                     </div>
-
-                    <!-- Quiz Area -->
                     <div id="quiz-area" class="hidden">
-                        <div class="mb-4 text-sm font-semibold text-gray-500 dark:text-gray-400">Câu <span id="current-q-num">1</span>/<span id="quiz-total-count">10</span></div>
-                        <h3 id="question-text" class="text-lg md:text-xl font-bold mb-6 font-oswald">Câu hỏi...</h3>
-                        
-                        <div id="options-container" class="space-y-3 mb-6">
-                            <!-- Options injected by JS -->
-                        </div>
-
-                        <!-- Feedback Area -->
+                        <div class="mb-4 text-sm font-semibold text-gray-500 dark:text-gray-400"><span id="quiz-question-prefix"></span> <span id="current-q-num">1</span>/<span id="quiz-total-count">10</span></div>
+                        <h3 id="question-text" class="text-lg md:text-xl font-bold mb-6 font-oswald"></h3>
+                        <div id="options-container" class="space-y-3 mb-6"></div>
                         <div id="feedback-area" class="hidden p-4 rounded-lg mb-6 text-sm">
                             <div class="font-bold flex items-center gap-2 mb-1" id="feedback-title"></div>
                             <div id="feedback-text" class="text-gray-700 dark:text-gray-200"></div>
                         </div>
-
-                        <button id="next-q-btn" class="hidden w-full py-3 bg-gray-800 dark:bg-gray-600 text-white font-bold rounded shadow hover:bg-gray-900 transition">Câu Tiếp Theo <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                        <button id="next-q-btn" class="hidden w-full py-3 bg-gray-800 dark:bg-gray-600 text-white font-bold rounded shadow hover:bg-gray-900 transition"></button>
                     </div>
-
-                    <!-- Result Area -->
                     <div id="quiz-result" class="hidden text-center">
                         <div id="result-icon" class="text-6xl mb-4">🏆</div>
-                        <h3 class="text-2xl font-bold font-oswald mb-2">Hoàn thành!</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">Điểm của bạn: <span id="final-score" class="font-bold text-2xl text-asn-red">0</span>/10</p>
+                        <h3 id="quiz-result-title" class="text-2xl font-bold font-oswald mb-2"></h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4"><span id="quiz-score-label"></span> <span id="final-score" class="font-bold text-2xl text-asn-red">0</span>/<span id="quiz-total-result">10</span></p>
                         <p id="result-message" class="mb-8 font-medium"></p>
-                        <button id="restart-quiz-btn" class="px-6 py-2 border-2 border-gray-800 dark:border-gray-500 font-bold rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition">Làm Lại Quiz</button>
+                        <button id="restart-quiz-btn" class="px-6 py-2 border-2 border-gray-800 dark:border-gray-500 font-bold rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"></button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 8. SALES SCRIPT & DO/DON'T -->
     <section class="py-16 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                
-                <!-- Sales Scripts -->
                 <div>
-                    <h2 class="text-2xl font-bold font-oswald mb-6 uppercase border-b-2 border-asn-red inline-block">Gợi ý tư vấn nhanh</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded border-l-4 border-gray-800 dark:border-gray-400">
-                            <h4 class="font-bold mb-2 flex justify-between"><span class="text-gray-800 dark:text-gray-200">Pitch 15 Giây</span> <i class="fa-solid fa-stopwatch text-gray-400"></i></h4>
-                            <p class="text-sm italic text-gray-700 dark:text-gray-300">"Đây là ASN Cordy Protein 80+ – đạm thực vật Isolate hàm lượng cao, cực kỳ nhẹ bụng, không đường. Đặc biệt có thêm Cordycepin từ đông trùng hạ thảo giúp anh/chị vừa nạp đủ đạm, vừa hỗ trợ sức bền phục hồi cực tốt."</p>
-                        </div>
-                        
-                        <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded border-l-4 border-gray-800 dark:border-gray-400">
-                            <h4 class="font-bold mb-2 flex justify-between"><span class="text-gray-800 dark:text-gray-200">Mở Lời Chuyển Đổi Whey</span> <i class="fa-solid fa-comments text-gray-400"></i></h4>
-                            <p class="text-sm italic text-gray-700 dark:text-gray-300">"Nếu anh/chị hay bị đầy bụng, nổi mụn khi uống Whey, hãy thử luân phiên với dòng Plant Protein này. Nó nhẹ bụng hơn hẳn do không có lactose, mà protein vẫn đạt mức 80%+, lại có thêm dưỡng chất hỗ trợ sức bền."</p>
-                        </div>
-
-                        <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded border-l-4 border-asn-red text-center">
-                            <h4 class="font-bold mb-2 font-oswald text-asn-red text-lg">Tâm Điểm Chốt Sale</h4>
-                            <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">"Không chỉ là bột protein thực vật, mà là giải pháp bổ sung đạm sạch, dễ tiêu hóa, có thêm giá trị từ Cordycepin, phù hợp để dùng đều mỗi ngày."</p>
-                        </div>
-                    </div>
+                    <h2 id="sales-script-title" class="text-2xl font-bold font-oswald mb-6 uppercase border-b-2 border-asn-red inline-block"></h2>
+                    <div id="sales-scripts" class="space-y-6"></div>
                 </div>
-
-                <!-- DO & DON'T -->
                 <div>
-                    <h2 class="text-2xl font-bold font-oswald mb-6 uppercase border-b-2 border-gray-800 dark:border-gray-300 inline-block">Nguyên Tắc Tư Vấn (DO & DON'T)</h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- DO -->
-                        <div class="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded p-4">
-                            <h4 class="font-bold text-green-700 dark:text-green-500 mb-3 border-b border-green-200 dark:border-green-800 pb-2 flex items-center gap-2"><i class="fa-solid fa-check-circle"></i> NÊN LÀM (DO)</h4>
-                            <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
-                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Nhấn mạnh protein 80%+, dễ tiêu hóa, không đường.</li>
-                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Giải thích Cordycepin như "điểm cộng" giá trị hỗ trợ sức bền.</li>
-                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Tư vấn "tổng hợp từ nhiều nguồn" thay vì "phối trộn".</li>
-                                <li><i class="fa-solid fa-check text-green-500 mr-1"></i> Khuyên khách có bệnh lý đặc biệt hỏi bác sĩ trước khi dùng.</li>
-                            </ul>
-                        </div>
-                        
-                        <!-- DON'T -->
-                        <div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded p-4">
-                            <h4 class="font-bold text-red-700 dark:text-red-500 mb-3 border-b border-red-200 dark:border-red-800 pb-2 flex items-center gap-2"><i class="fa-solid fa-xmark-circle"></i> KHÔNG NÊN (DON'T)</h4>
-                            <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
-                                <li><i class="fa-solid fa-xmark text-red-500 mr-1"></i> <strong>Tuyệt đối không</strong> nói sản phẩm chữa bệnh.</li>
-                                <li><i class="fa-solid fa-xmark text-red-500 mr-1"></i> Không cam kết tăng cơ/thay đổi sức khỏe quá mức.</li>
-                                <li><i class="fa-solid fa-xmark text-red-500 mr-1"></i> Không gọi là "bột ngũ cốc" hay "bột đậu" thông thường.</li>
-                                <li><i class="fa-solid fa-xmark text-red-500 mr-1"></i> Không hạ thấp Whey cực đoan (chỉ nói khác biệt).</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h2 id="sales-rules-title" class="text-2xl font-bold font-oswald mb-6 uppercase border-b-2 border-gray-800 dark:border-gray-300 inline-block"></h2>
+                    <div id="sales-rules" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 10. FINAL SUMMARY & FOOTER -->
     <footer class="py-12 bg-gray-900 text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold font-oswald text-asn-red mb-6 uppercase">5 Điều Bắt Buộc Nhớ</h2>
-            <ul class="text-left md:text-center space-y-3 mb-10 text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
-                <li><span class="text-asn-red font-bold">1.</span> Đúng tên: <strong>ASN Cordy Protein 80+</strong> (không gọi tắt).</li>
-                <li><span class="text-asn-red font-bold">2.</span> Bản chất: Đạm thực vật isolate hàm lượng cao (80%+).</li>
-                <li><span class="text-asn-red font-bold">3.</span> Điểm nhấn: <strong>Tổng hợp từ nhiều nguồn</strong> đạm + <strong>Cordyceps/Cordycepin</strong>.</li>
-                <li><span class="text-asn-red font-bold">4.</span> Cảm quan: Nhẹ bụng, không lactose, không đường.</li>
-                <li><span class="text-asn-red font-bold">5.</span> An toàn: Không claim chữa bệnh, bệnh lý nặng cần hỏi bác sĩ.</li>
-            </ul>
-            
-            <a href="#qa-section" class="inline-block px-8 py-4 bg-asn-red text-white font-bold rounded text-lg uppercase tracking-wider hover:bg-red-700 transition">
-                Hiểu Đúng - Tư Vấn Đúng - Bán Hàng Tự Tin
-            </a>
-            
-            <div class="mt-12 text-sm text-gray-600 border-t border-gray-800 pt-6">
-                Tài liệu đào tạo nội bộ. Cập nhật theo guidelines chuẩn.
-            </div>
+            <h2 id="footer-title" class="text-3xl font-bold font-oswald text-asn-red mb-6 uppercase"></h2>
+            <ul id="footer-list" class="text-left md:text-center space-y-3 mb-10 text-gray-300 text-sm md:text-base max-w-2xl mx-auto"></ul>
+            <a id="footer-cta" href="#qa-section" class="inline-block px-8 py-4 bg-asn-red text-white font-bold rounded text-lg uppercase tracking-wider hover:bg-red-700 transition"></a>
+            <div id="footer-note" class="mt-12 text-sm text-gray-600 border-t border-gray-800 pt-6"></div>
         </div>
     </footer>
 
-    <!-- Back to top -->
     <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-gray-800 dark:bg-gray-700 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-asn-red z-40">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-    <!-- JavaScript Application Logic -->
     <script>
-        // --- 1. DATA: OBJECTIONS ---
-        const objectionsData = [
-            {
-                q: "Protein thực vật có đủ tốt để tăng cơ không?",
-                a: "Đủ tốt. ASN Cordy Protein 80+ dùng đạm Isolate hàm lượng cao tổng hợp đa nguồn để cân bằng acid amin. Nếu dùng đủ lượng và tập luyện, sản phẩm hỗ trợ phục hồi và phát triển cơ bắp rất hiệu quả, không thua kém các loại đạm Whey khác."
-            },
-            {
-                q: "Đậu nành có ảnh hưởng hormone nam giới không?",
-                a: "Không. Phytoestrogen trong đậu nành có hoạt tính yếu hơn nội tiết tố người hàng nghìn lần. Hơn nữa, ASN Cordy Protein 80+ sử dụng nguồn đạm đã phân lập (Isolate) và tổng hợp đa nguồn, nam giới hoàn toàn yên tâm sử dụng ở mức hợp lý mà không lo ảnh hưởng hormone."
-            },
-            {
-                q: "Sản phẩm này có thay thế bữa ăn không?",
-                a: "Không thay thế hoàn toàn bữa ăn. Sản phẩm tập trung cung cấp đạm tinh khiết, không đủ carb/fat của bữa chính. Tuy nhiên, khách có thể dùng làm 'bữa phụ' tiện lợi để bổ sung đạm lành mạnh, không đường."
-            },
-            {
-                q: "Có dùng được mỗi ngày không?",
-                a: "Hoàn toàn có thể. Do đặc tính không lactose và nhẹ bụng, sản phẩm rất lý tưởng để duy trì bổ sung lượng đạm thiếu hụt trong chế độ ăn hằng ngày mà không làm quá tải hệ tiêu hóa."
-            },
-            {
-                q: "Khác gì so với whey?",
-                a: "Whey hấp thu nhanh nhưng dễ gây đầy bụng, nổi mụn với người bất dung nạp lactose. ASN Cordy Protein 80+ khác biệt: 100% đạm thực vật nhẹ bụng, không lactose, và ĐẶC BIỆT có thêm Cordycepin hỗ trợ sức bền – điều Whey không có. Rất hợp để luân phiên/thay thế."
-            },
-            {
-                q: "Cordycepin có tác dụng gì?",
-                a: "Nếu protein để nuôi cơ, thì Cordycepin (từ Đông trùng hạ thảo) hỗ trợ sức bền, giảm mệt mỏi và phục hồi thể trạng tổng thể. Lợi ích kép tuyệt vời cho người tập luyện và làm việc căng thẳng."
-            },
-            {
-                q: "Có phải thuốc không?",
-                a: "Tuyệt đối không. Đây là thực phẩm bổ sung dinh dưỡng (đạm thực vật cao cấp), giúp bù đắp protein thiếu hụt và hỗ trợ thể trạng, không có tác dụng thay thế thuốc chữa bệnh."
-            },
-            {
-                q: "Người có bệnh nền có dùng được không?",
-                a: "Sản phẩm lành tính, không đường. NHƯNG với người có bệnh lý đặc biệt (thận mạn, gan nặng, ung thư, tiểu đường đang dùng thuốc), nguyên tắc là: Cần hỏi bác sĩ hoặc chuyên gia dinh dưỡng để biết khẩu phần đạm phù hợp trước khi dùng thường xuyên."
-            },
-            {
-                q: "Sản phẩm không đường thì có khó uống không?",
-                a: "Không. Sản phẩm được thiết kế để dễ uống hằng ngày nhưng vẫn không dùng đường kính. Khi tư vấn, hãy nhấn mạnh lợi ích kiểm soát vóc dáng, hạn chế nạp đường dư thừa và phù hợp khách đang eat clean."
-            },
-            {
-                q: "Pha có cặn dưới đáy thì có phải hàng lỗi không?",
-                a: "Không phải lỗi. Đạm thực vật dạng bột mịn có thể có độ lắng tự nhiên. Hướng dẫn khách dùng bình lắc, lắc kỹ và uống ngay sau khi pha. Việc có ít cặn không làm mất chất lượng sản phẩm."
-            },
-            {
-                q: "Người tiểu đường có dùng được không?",
-                a: "Sản phẩm không đường, nhưng khách tiểu đường đang điều trị vẫn nên hỏi bác sĩ hoặc chuyên gia dinh dưỡng để kiểm soát tổng khẩu phần đạm và năng lượng trong ngày. Không tư vấn thay thế thuốc hoặc phác đồ điều trị."
-            },
-            {
-                q: "Có thể dùng chung hoặc luân phiên với Whey không?",
-                a: "Có thể. Đây là lựa chọn luân phiên tốt cho ngày khách muốn nhẹ bụng, tránh lactose hoặc muốn thêm giá trị hỗ trợ sức bền từ Cordyceps. Không cần hạ thấp Whey, chỉ cần nói rõ điểm khác biệt của từng dòng."
-            },
-            {
-                q: "Uống trước tập hay sau tập tốt hơn?",
-                a: "Sau tập hoặc giữa các bữa là cách dùng dễ tư vấn nhất để bổ sung đạm và hỗ trợ phục hồi. Nếu khách thiếu đạm trong ngày, có thể dùng như bữa phụ. Quan trọng là tổng protein cả ngày, không chỉ thời điểm uống."
-            },
-            {
-                q: "Khách nói giá cao hơn bột đậu/bột ngũ cốc thì xử lý sao?",
-                a: "Giải thích rằng đây là protein isolate hàm lượng cao 80%+, không phải bột ngũ cốc nhiều tinh bột. Giá trị nằm ở lượng đạm rõ ràng, công thức đa nguồn, nhẹ bụng, không lactose và có thêm Cordyceps/Cordycepin."
-            },
-            {
-                q: "Người lớn tuổi dùng có phù hợp không?",
-                a: "Phù hợp với người lớn tuổi cần bổ sung đạm nhẹ bụng, không lactose và không đường. Tuy nhiên nếu có bệnh thận, gan, đang dùng thuốc hoặc có chỉ định dinh dưỡng riêng thì phải hỏi bác sĩ trước khi dùng đều."
-            },
-            {
-                q: "Phụ nữ sau sinh hoặc đang cho con bú có dùng được không?",
-                a: "Có thể quan tâm vì nhu cầu dinh dưỡng cao, nhưng nếu đang cho con bú hoặc vừa sinh, cần khuyến nghị hỏi bác sĩ trước khi dùng thường xuyên để đảm bảo phù hợp với cơ địa, khẩu phần và tình trạng sức khỏe."
-            }
-        ];
-
-        // --- 2. DATA: Q&A ---
-        const qaCategories = [
-            { id: "all", name: "Tất cả" },
-            { id: "cat1", name: "Định vị & Khác biệt" },
-            { id: "cat2", name: "Macro & Liều dùng" },
-            { id: "cat3", name: "Amino Acid & Cơ" },
-            { id: "cat4", name: "So sánh Whey" },
-            { id: "cat5", name: "Cordyceps" },
-            { id: "cat6", name: "Tiêu hóa & Cảm quan" },
-            { id: "cat7", name: "An toàn Sức khỏe" }
-        ];
-
-        const qaData = [
-            // Cat 1
-            { id: 1, cat: "cat1", q: "ASN Cordy Protein 80+ là sản phẩm gì?", a: "Là dòng đạm thực vật isolate hàm lượng cao, phát triển theo hướng bổ sung protein hằng ngày kết hợp hỗ trợ sức bền, phục hồi. Điểm khác biệt là công thức Protein 80+ tổng hợp đa nguồn và có Đông trùng hạ thảo/Cordycepin." },
-            { id: 2, cat: "cat1", q: "Khác gì so với đạm thực vật thông thường?", a: "Nổi bật ở 4 điểm: Hàm lượng protein cao 80+, dùng nguồn đạm isolate, tổng hợp từ nhiều nguồn (pea, rice, soy) để cân bằng acid amin, và có thêm Cordyceps/Cordycepin hỗ trợ sức bền (đa số plant protein khác không có)." },
-            { id: 3, cat: "cat1", q: "Tại sao không gọi là bột ngũ cốc hay bột đậu?", a: "Vì bột ngũ cốc thường nhiều tinh bột, đạm thấp, khó tính macro. ASN Cordy Protein 80+ là protein isolate hàm lượng cao, cung cấp lượng đạm rõ ràng, phù hợp cho người bổ sung protein có mục tiêu." },
-            { id: 4, cat: "cat1", q: "Giá trị cốt lõi nên tư vấn như thế nào?", a: "Đạm thực vật cao cấp + nhẹ bụng + không lactose + hỗ trợ sức bền/phục hồi nhờ Cordyceps. Phù hợp người tập luyện, bổ sung đạm hằng ngày, người ngại đầy bụng khi dùng whey." },
-            
-            // Cat 2
-            { id: 5, cat: "cat2", q: "Hàm lượng protein thực nhận mỗi khẩu phần?", a: "Với hàm lượng ~82.7%, mỗi 25g bột cung cấp khoảng 20-21g protein. Dùng 30g bột nhận khoảng 24-25g. Giúp tính macro rõ ràng." },
-            { id: 6, cat: "cat2", q: "Một khẩu phần nên dùng bao nhiêu gram?", a: "Cơ bản 25-30g/lần. Người tập nặng cần tối ưu phục hồi có thể cân nhắc 30-40g/ngày tùy tổng khẩu phần ăn." },
-            { id: 7, cat: "cat2", q: "Có nên dùng 1-2 lần/ngày không?", a: "Có thể, tùy nhu cầu. Người thiếu đạm dùng 1 lần/ngày; người tập đều dùng sau tập/giữa các bữa. Tuy nhiên cần tính tổng protein cả ngày, không dùng kiểu 'càng nhiều càng tốt'." },
-            { id: 8, cat: "cat2", q: "Sản phẩm có liều tối đa mỗi ngày để an toàn gan thận không?", a: "Người khỏe mạnh dùng như nguồn đạm hằng ngày. Người bệnh thận mạn, gan nặng cần hỏi bác sĩ. Liều dùng dựa trên nhu cầu đạm cá nhân, không dùng tùy tiện quá mức." },
-
-            // Cat 3
-            { id: 9, cat: "cat3", q: "Hồ sơ acid amin có gì nổi bật?", a: "Không phụ thuộc 1 nguồn. Công thức tổng hợp từ đậu nành, đậu hà lan, gạo giúp bù trừ thế mạnh acid amin, tạo hồ sơ cân bằng hơn đạm thực vật đơn nguồn." },
-            { id: 10, cat: "cat3", q: "Leucine có đủ hỗ trợ tổng hợp cơ không?", a: "Nếu có ~5.4g leucine/100g bột, thì 30g bột cung cấp ~1.62g leucine; 40g bột cung cấp ~2.16g. Khẩu phần 30-40g/ngày đủ hỗ trợ phục hồi và tổng hợp cơ tốt." },
-            { id: 11, cat: "cat3", q: "Leucine thấp hơn whey thì có kém hiệu quả không?", a: "Whey lợi thế hấp thu nhanh, nhưng ASN Cordy Protein 80+ lợi thế nhẹ bụng, dễ dùng lâu dài, có Cordycepin hỗ trợ phục hồi. Nếu dùng đủ lượng đạm trong ngày, vẫn hỗ trợ tốt việc duy trì/phát triển cơ." },
-            { id: 12, cat: "cat3", q: "Tổng EAA/BCAA có đủ cho người tập không?", a: "Đủ. Điểm mạnh là công thức đa nguồn và khả năng dùng đều đặn, nhẹ bụng. Tập nặng có thể tăng khẩu phần hoặc kết hợp ăn uống chính." },
-            { id: 13, cat: "cat3", q: "Chênh lệch protein 82.7% so với whey 90% làm giảm tăng cơ không?", a: "Không đáng kể nếu điều chỉnh đủ khẩu phần hằng ngày. Whey hấp thu nhanh; sản phẩm này nổi bật vì nhẹ bụng, thực vật cao cấp và có giá trị phục hồi từ Cordyceps." },
-
-            // Cat 4
-            { id: 14, cat: "cat4", q: "Có thể thay thế whey không?", a: "Có, đặc biệt với người không dung nạp lactose, đầy bụng, ăn chay, hoặc cần đạm nhẹ bụng. Là lựa chọn thay thế/luân phiên cao cấp, không phải 'bản sao của whey'." },
-            { id: 15, cat: "cat4", q: "Khuyên khách bỏ hẳn whey sang sản phẩm này?", a: "Không ép bỏ. Khuyên dùng như lựa chọn cao cấp luân phiên để nhẹ bụng hơn, hoặc dùng vào ngày muốn tránh lactose, đồng thời nhận thêm lợi ích sức bền từ Cordyceps." },
-            { id: 16, cat: "cat4", q: "Phù hợp nhóm khách nào hơn whey?", a: "Người dễ đầy hơi khi dùng whey, không dung nạp lactose, người ăn chay/bán chay, người lớn tuổi cần đạm nhẹ bụng, người cần hỗ trợ sức bền từ Cordycepin." },
-
-            // Cat 5
-            { id: 17, cat: "cat5", q: "Cordyceps/Cordycepin có vai trò gì?", a: "Protein hỗ trợ cơ, còn Cordyceps hỗ trợ sức bền, giảm mệt mỏi, phục hồi thể trạng. Lợi ích kép tạo sự khác biệt lớn với plant protein thường." },
-            { id: 18, cat: "cat5", q: "Hàm lượng Cordycepin?", a: "Khoảng 80-155 mg/kg bột (tùy lô). Quan trọng là có thêm hoạt chất sinh học hỗ trợ từ Đông trùng hạ thảo mà protein thường không có." },
-            { id: 19, cat: "cat5", q: "Cordyceps có giúp tăng cơ trực tiếp không?", a: "Không trực tiếp như protein. Vai trò của nó là hỗ trợ năng lượng, sức bền, phục hồi tổng thể, bổ trợ cho nền protein 80+ phát huy hiệu quả." },
-            { id: 20, cat: "cat5", q: "Dùng bao lâu cảm nhận được hiệu quả Cordyceps?", a: "Cần dùng đều đặn, không tức thì như caffeine. Cảm nhận 2 lớp: đủ đạm phục hồi ngắn hạn sau tập, và cải thiện sức bền/thể trạng khi dùng dài hạn." },
-
-            // Cat 6
-            { id: 21, cat: "cat6", q: "Phù hợp người không dung nạp lactose không?", a: "Rất phù hợp. 100% đạm thực vật, không sữa bò, khắc phục được tình trạng đầy hơi, đau bụng khi dùng whey." },
-            { id: 22, cat: "cat6", q: "Hấp thu chậm hơn whey có lợi gì?", a: "Tốc độ ổn định là lợi thế cho người dùng hằng ngày, người lớn tuổi, hệ tiêu hóa nhạy cảm. Dễ duy trì lâu dài." },
-            { id: 23, cat: "cat6", q: "Người tiểu đường dùng được không?", a: "Sản phẩm không đường, dùng chất ngọt an toàn, đường thấp. NHƯNG đang điều trị cần hỏi bác sĩ/chuyên gia trước khi dùng thường xuyên." },
-            { id: 24, cat: "cat6", q: "Tại sao pha có cặn dưới đáy?", a: "Đặc tính tự nhiên của đạm thực vật dạng bột mịn. Nên dùng bình lắc kỹ và uống ngay. Không ảnh hưởng chất lượng." },
-            { id: 25, cat: "cat6", q: "Bảo quản thế nào?", a: "Nơi khô ráo, dưới 30 độ C. Đóng kín nắp, dùng muỗng khô, dùng trong 30-60 ngày. Không để tủ lạnh tránh ngưng tụ ẩm làm vón bột." },
-
-            // Cat 7
-            { id: 26, cat: "cat7", q: "Nam giới uống đậu nành bị nữ hóa?", a: "Không. Phytoestrogen hoạt tính cực yếu. Sản phẩm lại dùng đạm Isolate tổng hợp đa nguồn, nam giới dùng hợp lý không lo nữ hóa." },
-            { id: 27, cat: "cat7", q: "Lo ngại ung thư kiêng đạm đậu nành?", a: "Người khỏe bình thường an toàn. Người đang điều trị ung thư, bệnh nội tiết cần hỏi bác sĩ. Sản phẩm tổng hợp đa nguồn, nhưng có bệnh lý thì cần tư vấn cá nhân hóa." },
-            { id: 28, cat: "cat7", q: "Người có u, hạch dùng được không?", a: "Cơ địa bình thường không kiêng thì có thể dùng bổ sung. Nếu có u/hạch bất thường hoặc đang theo dõi ung thư: HỎI BÁC SĨ trước. Không hù dọa, không cam kết bừa." },
-            { id: 29, cat: "cat7", q: "Giải thích khách sợ đậu nành?", a: "Đậu nành bị hiểu lầm do phytoestrogen. Sản phẩm dùng đạm isolate tổng hợp nhiều loại đạm. Rủi ro sức khỏe thường do lối sống (rượu, thuốc, lười vận động) hơn là đạm đậu nành." },
-            { id: 30, cat: "cat7", q: "Ai cần thận trọng khi dùng?", a: "Bệnh thận mạn, gan nặng, ung thư, tự miễn, dùng thuốc chống đông, dị ứng đậu nành/đậu hà lan, phụ nữ có thai/cho con bú -> Hỏi bác sĩ trước. Người khỏe mạnh dùng bình thường." }
-        ];
-
-        // --- 3. DATA: QUIZ ---
-        const quizData = [
-            {
-                q: "ASN Cordy Protein 80+ bản chất là sản phẩm gì?",
-                options: ["Bột ngũ cốc tăng cân", "Đạm thực vật Isolate hàm lượng cao", "Thuốc phục hồi cơ bắp", "Đạm Whey pha Đông trùng hạ thảo"],
-                ans: 1,
-                exp: "Đúng. Đây là đạm thực vật Isolate hàm lượng cao (80%+), không phải bột ngũ cốc hay thuốc."
-            },
-            {
-                q: "Đặc điểm nào KHÔNG đúng khi nói về công thức của sản phẩm?",
-                options: ["Tổng hợp đa nguồn: Pea, Rice, Soy", "Không chứa Lactose", "Sử dụng đường kính để tạo vị ngon", "Bổ sung Cordyceps/Cordycepin"],
-                ans: 2,
-                exp: "Đúng. Sản phẩm KHÔNG ĐƯỜNG, sử dụng chất tạo ngọt an toàn, phù hợp kiểm soát cân nặng."
-            },
-            {
-                q: "Khách hàng muốn dùng ASN Cordy Protein 80+ thay thế hoàn toàn 3 bữa ăn chính có được không?",
-                options: ["Được, vì nó đủ chất", "Không, chỉ nên dùng làm bữa phụ bổ sung đạm", "Được nếu uống gấp đôi liều", "Không, vì đạm thực vật không tốt"],
-                ans: 1,
-                exp: "Sản phẩm cung cấp đạm tinh khiết, không đủ carb/fat/vi chất để thay thế bữa ăn chính. Chỉ dùng làm bữa phụ."
-            },
-            {
-                q: "Vai trò chính của thành phần Cordyceps/Cordycepin trong sản phẩm là gì?",
-                options: ["Kích thích tăng cơ bắp trực tiếp như Steroid", "Hỗ trợ tiêu hóa tốt hơn", "Hỗ trợ sức bền, phục hồi và thể trạng", "Làm bột dễ tan hơn"],
-                ans: 2,
-                exp: "Cordycepin đóng vai trò hỗ trợ sức bền, giảm mệt mỏi và phục hồi, kết hợp với Protein tạo thành lợi ích kép."
-            },
-            {
-                q: "Khách nam lo lắng uống đạm đậu nành bị 'nữ hóa', bạn tư vấn thế nào?",
-                options: ["Khuyên đổi sang uống Whey", "Giải thích Phytoestrogen hoạt tính rất yếu, an toàn cho nam", "Nói rằng chỉ nữ mới nên uống", "Sản phẩm đã lọc sạch 100% Phytoestrogen"],
-                ans: 1,
-                exp: "Phytoestrogen trong đậu nành cực kỳ yếu, không gây nữ hóa. Hơn nữa sản phẩm tổng hợp từ nhiều nguồn đạm (Pea, Rice, Soy)."
-            },
-            {
-                q: "Khi gặp khách hàng đang bị bệnh thận mạn hoặc ung thư muốn mua sản phẩm, bạn nên làm gì?",
-                options: ["Chốt sale ngay vì là đồ thực vật rất lành", "Cam kết sản phẩm chữa được bệnh", "Khuyên khách nhất định phải hỏi ý kiến bác sĩ trước", "Bảo khách tự giảm nửa liều là được"],
-                ans: 2,
-                exp: "Nguyên tắc an toàn: Có bệnh lý đặc biệt/đang dùng thuốc phải hỏi ý kiến bác sĩ trước khi dùng thường xuyên."
-            },
-            {
-                q: "Lợi thế lớn nhất của sản phẩm này so với Whey khi tư vấn tại Gym là gì?",
-                options: ["Hấp thu nhanh hơn Whey", "Nhẹ bụng, không lactose, có Cordycepin hỗ trợ sức bền", "Giá rẻ hơn rất nhiều", "Có nhiều vị ngon hơn"],
-                ans: 1,
-                exp: "Lợi thế tư vấn chốt sale là tính nhẹ bụng, không lactose (phù hợp ai uống whey bị đầy hơi/mụn) và có thêm điểm cộng từ Cordycepin."
-            },
-            {
-                q: "Sản phẩm có giúp cảm nhận năng lượng bùng nổ tức thì như Pre-workout (Caffeine) không?",
-                options: ["Có, uống xong sung ngay", "Không, Cordyceps hỗ trợ sức bền cần dùng đều đặn", "Có, nếu uống 2 muỗng", "Chỉ sung khi uống lúc đói"],
-                ans: 1,
-                exp: "Cordyceps không kích thích hệ thần kinh tức thì như Caffeine. Cần duy trì đều để thấy sức bền và sự phục hồi tăng lên."
-            },
-            {
-                q: "Tại sao sản phẩm được gọi là 'Tổng hợp đa nguồn' (Blend)?",
-                options: ["Vì có cả đạm thực vật và động vật", "Vì kết hợp Đậu Hà Lan, Gạo, Đậu nành để tối ưu Acid Amin", "Vì có nhiều mùi vị", "Vì pha trộn với ngũ cốc"],
-                ans: 1,
-                exp: "Kết hợp Pea, Rice, Soy giúp bù trừ các acid amin thiết yếu cho nhau, tạo hồ sơ acid amin cân bằng hơn."
-            },
-            {
-                q: "Câu nào dưới đây là 'DON'T' (Không được phép nói) khi tư vấn?",
-                options: ["Sản phẩm giúp bổ sung đạm thực vật hàm lượng cao", "Sản phẩm nhẹ bụng, rất hợp cho người sợ lactose", "Uống sản phẩm này sẽ chữa khỏi bệnh suy nhược", "Có thể dùng luân phiên với Whey"],
-                ans: 2,
-                exp: "Tuyệt đối KHÔNG claim y tế (không nói sản phẩm chữa bệnh). Đây là Thực phẩm bổ sung."
-            }
-        ];
-
-        // --- 4. RENDER FUNCTIONS & LOGIC ---
-
-        // Global UI state. These variables must be outside DOMContentLoaded because
-        // filterQA() and renderQAList() are attached to window and need to access them.
+        const DATA = {"page":{"vi":{"meta":{"title":"ASN Cordy Protein 80+ | Sales & PT Training Hub"},"nav":{"homeAria":"Về trang chủ","qa":"Q&A","quiz":"QUIZ","themeAria":"Đổi giao diện sáng/tối","langAria":"Đổi ngôn ngữ"},"hero":{"title":"ASN Cordy <span class='text-asn-red'>Protein 80+</span>","subtitle":"Hiểu đúng sản phẩm – Tư vấn tự tin – Bứt phá doanh số Supplement","pills":[{"icon":"fa-leaf text-green-500","text":"Plant Protein 80%+"},{"icon":"fa-feather text-blue-400","text":"Dễ tiêu hóa"},{"icon":"fa-ban text-red-400","text":"Không đường"},{"icon":"fa-dna text-purple-500","text":"Cordyceps / Cordycepin"}],"position":"<strong>Định vị chuẩn:</strong> “ASN Cordy Protein 80+ là đạm thực vật isolate hàm lượng cao 80+, tổng hợp từ nhiều nguồn đạm để tối ưu acid amin, không lactose, nhẹ bụng, và có thêm Đông trùng hạ thảo/Cordycepin để hỗ trợ sức bền, phục hồi và thể trạng tổng thể.”","ctaQA":"Tra cứu Q&A","ctaQuiz":"Làm Quiz Ôn Tập"},"overview":{"title":"Tổng quan sản phẩm","cards":[{"icon":"fa-jar","title":"Là gì?","body":"Đạm thực vật Isolate hàm lượng cao (80%+). Không phải bột đậu hay bột ngũ cốc phổ thông nhiều tinh bột."},{"icon":"fa-code-compare","title":"Khác biệt?","body":"Tổng hợp đa nguồn đạm (Pea, Rice, Soy) tối ưu acid amin + Bổ sung Cordycepin từ Đông trùng hạ thảo."},{"icon":"fa-calendar-day","title":"Dùng hằng ngày?","body":"Không đường, không lactose, cực kỳ nhẹ bụng. Lý tưởng làm bữa phụ bổ sung đạm lâu dài mà không ngán."},{"icon":"fa-dumbbell","title":"Tư vấn tại Gym?","body":"Giải pháp thay thế/luân phiên hoàn hảo cho khách đầy bụng khi uống Whey, hoặc khách muốn ăn uống clean hơn."}]},"values":{"title":"5 Giá trị cốt lõi","subtitle":"Vũ khí để Sales/PT thuyết phục khách hàng","items":[{"title":"1. Protein 80%+","body":"Hàm lượng cao, hỗ trợ bổ sung đạm chất lượng, giúp dễ dàng tính toán macro cho người tập."},{"title":"2. Plant-based Protein Blend","body":"Tổng hợp từ Pea (Đậu Hà Lan) + Rice (Gạo) + Soy (Đậu nành) giúp bù trừ, tạo hồ sơ acid amin cân bằng hơn đạm đơn nguồn."},{"title":"3. Cordyceps / Cordycepin","body":"Điểm sáng khác biệt. Không chỉ bổ sung đạm mà còn hỗ trợ sức bền, giảm mệt mỏi và phục hồi thể trạng."},{"title":"4. Không Đường","body":"Sử dụng chất tạo ngọt an toàn, phù hợp kiểm soát vóc dáng, cân nặng và lối sống lành mạnh."},{"title":"5. Dễ Tiêu Hóa / Không Lactose","body":"Khắc phục điểm yếu đầy hơi, nổi mụn của Whey/Sữa bò. Dạ dày êm ái, hấp thu nhẹ nhàng."}]},"profiles":{"title":"5 Nhóm Khách Hàng Trọng Tâm","cards":[{"icon":"fa-person-running","color":"bg-red-600","title":"Người Tập Gym, Eat Clean","bullets":["Cần protein chất lượng để giữ/tăng cơ.","Muốn kiểm soát vóc dáng, ăn uống clean.","Có thể không hợp Whey, muốn nhẹ bụng."],"quote":"Bổ sung đạm thực vật hàm lượng cao, nhẹ bụng, hỗ trợ phục hồi và duy trì vóc dáng khi kết hợp tập luyện."},{"icon":"fa-battery-half","color":"bg-orange-500","title":"Suy Nhược, Mệt Mỏi","bullets":["Ăn uống thiếu chất, thiếu đạm.","Căng thẳng, hay mệt do công việc/vận động.","Cần dinh dưỡng tiện lợi, quan tâm sức bền."],"quote":"Bổ sung protein + Cordycepin hỗ trợ sức bền và phục hồi. Dùng đều hằng ngày, không phải chất kích thích tức thì."},{"icon":"fa-person-cane","color":"bg-blue-500","title":"Người Cao Tuổi","bullets":["Cần đạm duy trì khối cơ, thể trạng.","Hệ tiêu hóa kém, cần sản phẩm nhẹ bụng.","Ưu tiên ít/không đường, an toàn."],"quote":"Lựa chọn đạm nhẹ bụng, không lactose hỗ trợ thể trạng. (Bệnh lý nền cần hỏi bác sĩ)."},{"icon":"fa-heart-pulse","color":"bg-green-500","title":"Phục Hồi Sau Bệnh","bullets":["Khẩu phần ăn chưa đủ đạm do mệt mỏi.","Cần protein hỗ trợ phục hồi mô/cơ.","Cần sản phẩm dễ uống, dễ tiêu."],"quote":"Hỗ trợ bổ sung protein phục hồi thể trạng khi ăn kém. (Đang điều trị thuốc cần hỏi bác sĩ)."},{"icon":"fa-person-breastfeeding","color":"bg-pink-500","title":"Phụ Nữ Sau Sinh","bullets":["Cần đạm phục hồi vóc dáng, da/tóc.","Cần nguồn dinh dưỡng tiện lợi.","Thận trọng thành phần khi cho con bú."],"quote":"Hỗ trợ lấy lại vóc dáng, thể trạng. (Đang cho con bú nên tham khảo ý kiến bác sĩ trước)."}],"safetyTitle":"LƯU Ý TƯ VẤN AN TOÀN","safetyBody":"ASN Cordy Protein 80+ là <strong>thực phẩm bổ sung protein, không phải thuốc và không thay thế điều trị y tế</strong>. Với khách hàng đang có bệnh lý, đang dùng thuốc, phụ nữ mang thai/cho con bú hoặc có chỉ định dinh dưỡng đặc biệt, luôn khuyến nghị hỏi bác sĩ/chuyên gia trước khi dùng thường xuyên."},"objections":{"title":"Xử Lý Phản Đối (Objection Handling)","subtitle":"Nhanh chóng tháo gỡ thắc mắc phổ biến của hội viên","answerLabel":"Gợi ý trả lời:","pageLabel":"Trang","rangeTemplate":"Hiển thị {start}-{end}/{total} mục","empty":"Chưa có nội dung phản đối.","prevAria":"Trang phản đối trước","nextAria":"Trang phản đối tiếp theo"},"qa":{"title":"Ngân Hàng Q&A Chuyên Sâu","placeholder":"Nhập từ khóa cần tìm (VD: tiểu đường, whey, cách pha...)","expand":"Mở tất cả","collapse":"Thu gọn","noResult":"Không tìm thấy kết quả phù hợp. Vui lòng thử từ khóa khác.","answerLabel":"A:"},"quiz":{"title":"Kiểm Tra Kiến Thức","subtitleTemplate":"{total} câu trắc nghiệm nhanh để tự tin tư vấn","introTitle":"Sẵn sàng ôn tập?","start":"Bắt Đầu Test","questionPrefix":"Câu","questionPlaceholder":"Câu hỏi...","next":"Câu Tiếp Theo","viewResult":"Xem Kết Quả","resultTitle":"Hoàn thành!","scoreLabel":"Điểm của bạn:","restart":"Làm Lại Quiz","correct":"Chính xác!","wrong":"Chưa đúng!","messages":{"high":"Tuyệt vời! Bạn đã nắm rất vững kiến thức sản phẩm. Hãy tự tin tư vấn nhé!","mid":"Khá tốt! Bạn đã hiểu cơ bản, nhưng hãy xem lại phần Q&A để sắc bén hơn khi chốt sale.","low":"Cần ôn tập thêm! Hãy đọc kỹ lại các Key value và phần Objection Handling."}},"sales":{"scriptTitle":"Gợi ý tư vấn nhanh","scripts":[{"title":"Pitch 15 Giây","icon":"fa-stopwatch","body":"Đây là ASN Cordy Protein 80+ – đạm thực vật Isolate hàm lượng cao, cực kỳ nhẹ bụng, không đường. Đặc biệt có thêm Cordycepin từ đông trùng hạ thảo giúp anh/chị vừa nạp đủ đạm, vừa hỗ trợ sức bền phục hồi cực tốt."},{"title":"Mở Lời Chuyển Đổi Whey","icon":"fa-comments","body":"Nếu anh/chị hay bị đầy bụng, nổi mụn khi uống Whey, hãy thử luân phiên với dòng Plant Protein này. Nó nhẹ bụng hơn hẳn do không có lactose, mà protein vẫn đạt mức 80%+, lại có thêm dưỡng chất hỗ trợ sức bền."},{"title":"Tâm Điểm Chốt Sale","icon":"","body":"Không chỉ là bột protein thực vật, mà là giải pháp bổ sung đạm sạch, dễ tiêu hóa, có thêm giá trị từ Cordycepin, phù hợp để dùng đều mỗi ngày.","highlight":true}],"rulesTitle":"Nguyên Tắc Tư Vấn (DO & DON'T)","doTitle":"NÊN LÀM (DO)","dontTitle":"KHÔNG NÊN (DON'T)","doItems":["Nhấn mạnh protein 80%+, dễ tiêu hóa, không đường.","Giải thích Cordycepin như “điểm cộng” giá trị hỗ trợ sức bền.","Tư vấn “tổng hợp từ nhiều nguồn” thay vì “phối trộn”.","Khuyên khách có bệnh lý đặc biệt hỏi bác sĩ trước khi dùng."],"dontItems":["<strong>Tuyệt đối không</strong> nói sản phẩm chữa bệnh.","Không cam kết tăng cơ/thay đổi sức khỏe quá mức.","Không gọi là “bột ngũ cốc” hay “bột đậu” thông thường.","Không hạ thấp Whey cực đoan (chỉ nói khác biệt)."]},"footer":{"title":"5 Điều Bắt Buộc Nhớ","items":["<span class='text-asn-red font-bold'>1.</span> Đúng tên: <strong>ASN Cordy Protein 80+</strong> (không gọi tắt).","<span class='text-asn-red font-bold'>2.</span> Bản chất: Đạm thực vật isolate hàm lượng cao (80%+).","<span class='text-asn-red font-bold'>3.</span> Điểm nhấn: <strong>Tổng hợp từ nhiều nguồn</strong> đạm + <strong>Cordyceps/Cordycepin</strong>.","<span class='text-asn-red font-bold'>4.</span> Cảm quan: Nhẹ bụng, không lactose, không đường.","<span class='text-asn-red font-bold'>5.</span> An toàn: Không claim chữa bệnh, bệnh lý nặng cần hỏi bác sĩ."],"cta":"Hiểu Đúng - Tư Vấn Đúng - Bán Hàng Tự Tin","note":"Tài liệu đào tạo nội bộ. Cập nhật theo guidelines chuẩn."}},"en":{"meta":{"title":"ASN Cordy Protein 80+ | Sales & PT Training Hub"},"nav":{"homeAria":"Back to homepage","qa":"Q&A","quiz":"QUIZ","themeAria":"Switch light/dark theme","langAria":"Switch language"},"hero":{"title":"ASN Cordy <span class='text-asn-red'>Protein 80+</span>","subtitle":"Understand the product – Consult with confidence – Boost supplement sales","pills":[{"icon":"fa-leaf text-green-500","text":"Plant Protein 80%+"},{"icon":"fa-feather text-blue-400","text":"Easy to digest"},{"icon":"fa-ban text-red-400","text":"Sugar-free"},{"icon":"fa-dna text-purple-500","text":"Cordyceps / Cordycepin"}],"position":"<strong>Core positioning:</strong> “ASN Cordy Protein 80+ is a high-content 80%+ isolate plant protein, blended from multiple protein sources to optimize amino acids. It is lactose-free, gentle on the stomach, and enhanced with Cordyceps/Cordycepin to support endurance, recovery, and overall condition.”","ctaQA":"Explore Q&A","ctaQuiz":"Start Review Quiz"},"overview":{"title":"Product Overview","cards":[{"icon":"fa-jar","title":"What is it?","body":"A high-content isolate plant protein (80%+). It is not regular bean powder or common cereal powder that is high in starch."},{"icon":"fa-code-compare","title":"What makes it different?","body":"Multi-source protein blend (Pea, Rice, Soy) to optimize amino acids + added Cordycepin from Cordyceps."},{"icon":"fa-calendar-day","title":"Daily use?","body":"Sugar-free, lactose-free, and very gentle on the stomach. Ideal as a long-term protein snack without getting boring."},{"icon":"fa-dumbbell","title":"Gym consultation?","body":"A strong alternative or rotation option for customers who feel bloated with whey, or customers who want a cleaner nutrition routine."}]},"values":{"title":"5 Core Values","subtitle":"Key talking points for Sales/PT teams","items":[{"title":"1. Protein 80%+","body":"High protein content helps users add quality protein and makes macro tracking easier for training goals."},{"title":"2. Plant-based Protein Blend","body":"Made from Pea + Rice + Soy protein sources to complement amino acid strengths and create a more balanced profile than a single-source plant protein."},{"title":"3. Cordyceps / Cordycepin","body":"A clear point of difference. It does not only add protein; it also supports endurance, fatigue reduction, and overall recovery."},{"title":"4. Sugar-free","body":"Uses safe sweeteners and suits body-shape control, weight management, and a healthier lifestyle."},{"title":"5. Easy Digestion / Lactose-free","body":"Helps address common whey/cow-milk concerns such as bloating or acne. Gentle on the stomach and easier to maintain."}]},"profiles":{"title":"5 Key Customer Groups","cards":[{"icon":"fa-person-running","color":"bg-red-600","title":"Gym & Eat-clean Customers","bullets":["Need quality protein to maintain/build muscle.","Want body-shape control and cleaner eating.","May not tolerate whey well and want something gentler."],"quote":"A high-content plant protein that is gentle on the stomach and supports recovery and body maintenance when paired with training."},{"icon":"fa-battery-half","color":"bg-orange-500","title":"Low Energy / Fatigue","bullets":["Diet may lack nutrients and protein.","Stress or work/training may cause fatigue.","Need convenient nutrition and care about endurance."],"quote":"Protein + Cordycepin supports endurance and recovery. It is for consistent daily use, not an instant stimulant."},{"icon":"fa-person-cane","color":"bg-blue-500","title":"Older Adults","bullets":["Need protein to maintain muscle mass and condition.","May have weaker digestion and need a gentle product.","Prefer low/no sugar and safety-focused options."],"quote":"A gentle, lactose-free protein option to support overall condition. (Customers with underlying conditions should consult a doctor)."},{"icon":"fa-heart-pulse","color":"bg-green-500","title":"Recovery After Illness","bullets":["Daily meals may be low in protein due to fatigue.","Need protein to support tissue/muscle recovery.","Need something easy to drink and digest."],"quote":"Supports protein intake and body-condition recovery when eating is difficult. (Customers under medical treatment should consult a doctor)."},{"icon":"fa-person-breastfeeding","color":"bg-pink-500","title":"Postpartum Women","bullets":["Need protein to support body, skin, and hair recovery.","Need a convenient nutrition source.","Should be cautious with ingredients when breastfeeding."],"quote":"Supports body-shape and condition recovery. (Breastfeeding mothers should consult a doctor before regular use)."}],"safetyTitle":"SAFE CONSULTATION NOTE","safetyBody":"ASN Cordy Protein 80+ is a <strong>protein supplement, not medicine and not a substitute for medical treatment</strong>. For customers with medical conditions, those using medication, pregnant/breastfeeding women, or anyone with special nutrition instructions, always recommend consulting a doctor or nutrition professional before regular use."},"objections":{"title":"Objection Handling","subtitle":"Quickly address common member questions and concerns","answerLabel":"Suggested answer:","pageLabel":"Page","rangeTemplate":"Showing {start}-{end}/{total} items","empty":"No objection-handling content yet.","prevAria":"Previous objection page","nextAria":"Next objection page"},"qa":{"title":"In-depth Q&A Bank","placeholder":"Enter a keyword (e.g., diabetes, whey, mixing...)","expand":"Expand all","collapse":"Collapse","noResult":"No matching results found. Please try another keyword.","answerLabel":"A:"},"quiz":{"title":"Knowledge Check","subtitleTemplate":"{total} quick multiple-choice questions to build consultation confidence","introTitle":"Ready to review?","start":"Start Test","questionPrefix":"Question","questionPlaceholder":"Question...","next":"Next Question","viewResult":"View Results","resultTitle":"Completed!","scoreLabel":"Your score:","restart":"Retake Quiz","correct":"Correct!","wrong":"Not quite!","messages":{"high":"Excellent! You have a strong grasp of the product knowledge. Consult with confidence!","mid":"Good job! You understand the basics, but review the Q&A section to sharpen your sales responses.","low":"More review needed. Read the key values and Objection Handling section again."}},"sales":{"scriptTitle":"Quick Consultation Scripts","scripts":[{"title":"15-second Pitch","icon":"fa-stopwatch","body":"This is ASN Cordy Protein 80+ — a high-content isolate plant protein that is very gentle on the stomach and sugar-free. It also contains Cordycepin from Cordyceps, helping customers add enough protein while supporting endurance and recovery."},{"title":"Whey-switch Opening","icon":"fa-comments","body":"If you often feel bloated or get acne when using whey, try rotating with this Plant Protein line. It is much gentler because it has no lactose, still reaches 80%+ protein, and adds endurance-support nutrients."},{"title":"Closing Focus","icon":"","body":"It is not just plant protein powder; it is a clean, easy-to-digest protein solution with added Cordycepin value, suitable for consistent daily use.","highlight":true}],"rulesTitle":"Consultation Rules (DO & DON'T)","doTitle":"DO","dontTitle":"DON'T","doItems":["Emphasize 80%+ protein, easy digestion, and sugar-free positioning.","Explain Cordycepin as a valuable plus for endurance support.","Say “multi-source protein blend” instead of a vague “mixed powder.”","Recommend that customers with special medical conditions consult a doctor first."],"dontItems":["<strong>Never</strong> claim that the product cures disease.","Do not overpromise muscle gain or health transformation.","Do not call it common cereal powder or bean powder.","Do not aggressively put whey down; only explain the difference."]},"footer":{"title":"5 Must-remember Points","items":["<span class='text-asn-red font-bold'>1.</span> Correct name: <strong>ASN Cordy Protein 80+</strong> (do not shorten it casually).","<span class='text-asn-red font-bold'>2.</span> Nature: High-content isolate plant protein (80%+).","<span class='text-asn-red font-bold'>3.</span> Highlight: <strong>Multi-source protein blend</strong> + <strong>Cordyceps/Cordycepin</strong>.","<span class='text-asn-red font-bold'>4.</span> User feel: Gentle on the stomach, lactose-free, sugar-free.","<span class='text-asn-red font-bold'>5.</span> Safety: No disease-cure claims; serious conditions need medical advice."],"cta":"Understand Right - Consult Right - Sell with Confidence","note":"Internal training material. Updated according to standard guidelines."}}},"shared":{"objections":{"vi":[{"q":"Protein thực vật có đủ tốt để tăng cơ không?","a":"Đủ tốt. ASN Cordy Protein 80+ dùng đạm Isolate hàm lượng cao tổng hợp đa nguồn để cân bằng acid amin. Nếu dùng đủ lượng và tập luyện, sản phẩm hỗ trợ phục hồi và phát triển cơ bắp rất hiệu quả, không thua kém các loại đạm Whey khác."},{"q":"Đậu nành có ảnh hưởng hormone nam giới không?","a":"Không. Phytoestrogen trong đậu nành có hoạt tính yếu hơn nội tiết tố người hàng nghìn lần. Hơn nữa, ASN Cordy Protein 80+ sử dụng nguồn đạm đã phân lập (Isolate) và tổng hợp đa nguồn, nam giới hoàn toàn yên tâm sử dụng ở mức hợp lý mà không lo ảnh hưởng hormone."},{"q":"Sản phẩm này có thay thế bữa ăn không?","a":"Không thay thế hoàn toàn bữa ăn. Sản phẩm tập trung cung cấp đạm tinh khiết, không đủ carb/fat của bữa chính. Tuy nhiên, khách có thể dùng làm 'bữa phụ' tiện lợi để bổ sung đạm lành mạnh, không đường."},{"q":"Có dùng được mỗi ngày không?","a":"Hoàn toàn có thể. Do đặc tính không lactose và nhẹ bụng, sản phẩm rất lý tưởng để duy trì bổ sung lượng đạm thiếu hụt trong chế độ ăn hằng ngày mà không làm quá tải hệ tiêu hóa."},{"q":"Khác gì so với whey?","a":"Whey hấp thu nhanh nhưng dễ gây đầy bụng, nổi mụn với người bất dung nạp lactose. ASN Cordy Protein 80+ khác biệt: 100% đạm thực vật nhẹ bụng, không lactose, và ĐẶC BIỆT có thêm Cordycepin hỗ trợ sức bền – điều Whey không có. Rất hợp để luân phiên/thay thế."},{"q":"Cordycepin có tác dụng gì?","a":"Nếu protein để nuôi cơ, thì Cordycepin (từ Đông trùng hạ thảo) hỗ trợ sức bền, giảm mệt mỏi và phục hồi thể trạng tổng thể. Lợi ích kép tuyệt vời cho người tập luyện và làm việc căng thẳng."},{"q":"Có phải thuốc không?","a":"Tuyệt đối không. Đây là thực phẩm bổ sung dinh dưỡng (đạm thực vật cao cấp), giúp bù đắp protein thiếu hụt và hỗ trợ thể trạng, không có tác dụng thay thế thuốc chữa bệnh."},{"q":"Người có bệnh nền có dùng được không?","a":"Sản phẩm lành tính, không đường. NHƯNG với người có bệnh lý đặc biệt (thận mạn, gan nặng, ung thư, tiểu đường đang dùng thuốc), nguyên tắc là: Cần hỏi bác sĩ hoặc chuyên gia dinh dưỡng để biết khẩu phần đạm phù hợp trước khi dùng thường xuyên."},{"q":"Sản phẩm không đường thì có khó uống không?","a":"Không. Sản phẩm được thiết kế để dễ uống hằng ngày nhưng vẫn không dùng đường kính. Khi tư vấn, hãy nhấn mạnh lợi ích kiểm soát vóc dáng, hạn chế nạp đường dư thừa và phù hợp khách đang eat clean."},{"q":"Pha có cặn dưới đáy thì có phải hàng lỗi không?","a":"Không phải lỗi. Đạm thực vật dạng bột mịn có thể có độ lắng tự nhiên. Hướng dẫn khách dùng bình lắc, lắc kỹ và uống ngay sau khi pha. Việc có ít cặn không làm mất chất lượng sản phẩm."},{"q":"Người tiểu đường có dùng được không?","a":"Sản phẩm không đường, nhưng khách tiểu đường đang điều trị vẫn nên hỏi bác sĩ hoặc chuyên gia dinh dưỡng để kiểm soát tổng khẩu phần đạm và năng lượng trong ngày. Không tư vấn thay thế thuốc hoặc phác đồ điều trị."},{"q":"Có thể dùng chung hoặc luân phiên với Whey không?","a":"Có thể. Đây là lựa chọn luân phiên tốt cho ngày khách muốn nhẹ bụng, tránh lactose hoặc muốn thêm giá trị hỗ trợ sức bền từ Cordyceps. Không cần hạ thấp Whey, chỉ cần nói rõ điểm khác biệt của từng dòng."},{"q":"Uống trước tập hay sau tập tốt hơn?","a":"Sau tập hoặc giữa các bữa là cách dùng dễ tư vấn nhất để bổ sung đạm và hỗ trợ phục hồi. Nếu khách thiếu đạm trong ngày, có thể dùng như bữa phụ. Quan trọng là tổng protein cả ngày, không chỉ thời điểm uống."},{"q":"Khách nói giá cao hơn bột đậu/bột ngũ cốc thì xử lý sao?","a":"Giải thích rằng đây là protein isolate hàm lượng cao 80%+, không phải bột ngũ cốc nhiều tinh bột. Giá trị nằm ở lượng đạm rõ ràng, công thức đa nguồn, nhẹ bụng, không lactose và có thêm Cordyceps/Cordycepin."},{"q":"Người lớn tuổi dùng có phù hợp không?","a":"Phù hợp với người lớn tuổi cần bổ sung đạm nhẹ bụng, không lactose và không đường. Tuy nhiên nếu có bệnh thận, gan, đang dùng thuốc hoặc có chỉ định dinh dưỡng riêng thì phải hỏi bác sĩ trước khi dùng đều."},{"q":"Phụ nữ sau sinh hoặc đang cho con bú có dùng được không?","a":"Có thể quan tâm vì nhu cầu dinh dưỡng cao, nhưng nếu đang cho con bú hoặc vừa sinh, cần khuyến nghị hỏi bác sĩ trước khi dùng thường xuyên để đảm bảo phù hợp với cơ địa, khẩu phần và tình trạng sức khỏe."}],"en":[{"q":"Is plant protein good enough for muscle gain?","a":"Yes. ASN Cordy Protein 80+ uses high-content isolate protein from multiple sources to balance amino acids. When intake and training are adequate, it can effectively support recovery and muscle development, comparable to other protein options."},{"q":"Does soy affect male hormones?","a":"No. Soy phytoestrogens are much weaker than human hormones. ASN Cordy Protein 80+ also uses isolated protein and a multi-source blend, so men can use it reasonably without worrying about hormone effects."},{"q":"Can this product replace a meal?","a":"It should not fully replace a meal. The product focuses on providing clean protein and does not contain the full carbs/fats of a main meal. Customers can use it as a convenient snack to add healthy, sugar-free protein."},{"q":"Can it be used every day?","a":"Yes. Because it is lactose-free and gentle on the stomach, it is suitable for maintaining daily protein intake without overloading digestion."},{"q":"How is it different from whey?","a":"Whey absorbs quickly but may cause bloating or acne for people sensitive to lactose. ASN Cordy Protein 80+ is 100% plant-based, gentle, lactose-free, and notably includes Cordycepin for endurance support — something regular whey does not have. It is suitable for rotation or replacement."},{"q":"What does Cordycepin do?","a":"If protein supports muscle nourishment, Cordycepin from Cordyceps supports endurance, helps reduce fatigue, and supports overall recovery. This creates a dual benefit for training and high-stress lifestyles."},{"q":"Is it medicine?","a":"Absolutely not. It is a nutrition supplement — a premium plant protein — that helps fill protein gaps and support overall condition. It does not replace medication or medical treatment."},{"q":"Can customers with underlying conditions use it?","a":"The product is sugar-free and generally gentle. However, for customers with special medical conditions such as chronic kidney disease, severe liver disease, cancer, or diabetes under treatment, the rule is to consult a doctor or nutrition professional for the appropriate protein intake before regular use."},{"q":"If it is sugar-free, is it hard to drink?","a":"No. It is designed for daily drinkability without using refined sugar. When consulting, emphasize body-shape control, reduced excess sugar intake, and suitability for eat-clean customers."},{"q":"If residue settles at the bottom, is it defective?","a":"No. Fine plant protein powder may naturally settle. Advise customers to use a shaker, shake well, and drink soon after mixing. A small amount of residue does not reduce product quality."},{"q":"Can people with diabetes use it?","a":"The product is sugar-free, but customers with diabetes under treatment should still consult a doctor or nutrition professional to manage total daily protein and energy intake. Do not position it as a replacement for medication or treatment plans."},{"q":"Can it be used together with or rotated with whey?","a":"Yes. It is a good rotation option for days when customers want something gentler, want to avoid lactose, or want the added endurance-support value from Cordyceps. There is no need to criticize whey; simply explain the difference between product types."},{"q":"Is it better before or after training?","a":"Post-workout or between meals is the easiest recommendation for protein intake and recovery support. If customers are short on daily protein, they can use it as a snack. Total daily protein matters more than timing alone."},{"q":"What if customers say it costs more than bean or cereal powder?","a":"Explain that this is a high-content 80%+ protein isolate, not high-starch cereal powder. The value lies in clear protein content, multi-source formula, gentle digestion, lactose-free positioning, and added Cordyceps/Cordycepin."},{"q":"Is it suitable for older adults?","a":"It can suit older adults who need a gentle, lactose-free, sugar-free protein source. However, if they have kidney/liver disease, use medication, or have specific nutrition instructions, they should consult a doctor before regular use."},{"q":"Can postpartum or breastfeeding women use it?","a":"They may be interested because nutrition needs are higher, but if they are breastfeeding or recently gave birth, recommend consulting a doctor before regular use to ensure it fits their body condition, diet, and health status."}]},"qaCategories":{"vi":[{"id":"all","name":"Tất cả"},{"id":"cat1","name":"Định vị & Khác biệt"},{"id":"cat2","name":"Macro & Liều dùng"},{"id":"cat3","name":"Amino Acid & Cơ"},{"id":"cat4","name":"So sánh Whey"},{"id":"cat5","name":"Cordyceps"},{"id":"cat6","name":"Tiêu hóa & Cảm quan"},{"id":"cat7","name":"An toàn Sức khỏe"}],"en":[{"id":"all","name":"All"},{"id":"cat1","name":"Positioning & Difference"},{"id":"cat2","name":"Macros & Usage"},{"id":"cat3","name":"Amino Acids & Muscle"},{"id":"cat4","name":"Whey Comparison"},{"id":"cat5","name":"Cordyceps"},{"id":"cat6","name":"Digestion & User Feel"},{"id":"cat7","name":"Health & Safety"}]},"qa":{"vi":[{"id":1,"cat":"cat1","q":"ASN Cordy Protein 80+ là sản phẩm gì?","a":"Là dòng đạm thực vật isolate hàm lượng cao, phát triển theo hướng bổ sung protein hằng ngày kết hợp hỗ trợ sức bền, phục hồi. Điểm khác biệt là công thức Protein 80+ tổng hợp đa nguồn và có Đông trùng hạ thảo/Cordycepin."},{"id":2,"cat":"cat1","q":"Khác gì so với đạm thực vật thông thường?","a":"Nổi bật ở 4 điểm: Hàm lượng protein cao 80+, dùng nguồn đạm isolate, tổng hợp từ nhiều nguồn (pea, rice, soy) để cân bằng acid amin, và có thêm Cordyceps/Cordycepin hỗ trợ sức bền (đa số plant protein khác không có)."},{"id":3,"cat":"cat1","q":"Tại sao không gọi là bột ngũ cốc hay bột đậu?","a":"Vì bột ngũ cốc thường nhiều tinh bột, đạm thấp, khó tính macro. ASN Cordy Protein 80+ là protein isolate hàm lượng cao, cung cấp lượng đạm rõ ràng, phù hợp cho người bổ sung protein có mục tiêu."},{"id":4,"cat":"cat1","q":"Giá trị cốt lõi nên tư vấn như thế nào?","a":"Đạm thực vật cao cấp + nhẹ bụng + không lactose + hỗ trợ sức bền/phục hồi nhờ Cordyceps. Phù hợp người tập luyện, bổ sung đạm hằng ngày, người ngại đầy bụng khi dùng whey."},{"id":5,"cat":"cat2","q":"Hàm lượng protein thực nhận mỗi khẩu phần?","a":"Với hàm lượng ~82.7%, mỗi 25g bột cung cấp khoảng 20-21g protein. Dùng 30g bột nhận khoảng 24-25g. Giúp tính macro rõ ràng."},{"id":6,"cat":"cat2","q":"Một khẩu phần nên dùng bao nhiêu gram?","a":"Cơ bản 25-30g/lần. Người tập nặng cần tối ưu phục hồi có thể cân nhắc 30-40g/ngày tùy tổng khẩu phần ăn."},{"id":7,"cat":"cat2","q":"Có nên dùng 1-2 lần/ngày không?","a":"Có thể, tùy nhu cầu. Người thiếu đạm dùng 1 lần/ngày; người tập đều dùng sau tập/giữa các bữa. Tuy nhiên cần tính tổng protein cả ngày, không dùng kiểu 'càng nhiều càng tốt'."},{"id":8,"cat":"cat2","q":"Sản phẩm có liều tối đa mỗi ngày để an toàn gan thận không?","a":"Người khỏe mạnh dùng như nguồn đạm hằng ngày. Người bệnh thận mạn, gan nặng cần hỏi bác sĩ. Liều dùng dựa trên nhu cầu đạm cá nhân, không dùng tùy tiện quá mức."},{"id":9,"cat":"cat3","q":"Hồ sơ acid amin có gì nổi bật?","a":"Không phụ thuộc 1 nguồn. Công thức tổng hợp từ đậu nành, đậu hà lan, gạo giúp bù trừ thế mạnh acid amin, tạo hồ sơ cân bằng hơn đạm thực vật đơn nguồn."},{"id":10,"cat":"cat3","q":"Leucine có đủ hỗ trợ tổng hợp cơ không?","a":"Nếu có ~5.4g leucine/100g bột, thì 30g bột cung cấp ~1.62g leucine; 40g bột cung cấp ~2.16g. Khẩu phần 30-40g/ngày đủ hỗ trợ phục hồi và tổng hợp cơ tốt."},{"id":11,"cat":"cat3","q":"Leucine thấp hơn whey thì có kém hiệu quả không?","a":"Whey lợi thế hấp thu nhanh, nhưng ASN Cordy Protein 80+ lợi thế nhẹ bụng, dễ dùng lâu dài, có Cordycepin hỗ trợ phục hồi. Nếu dùng đủ lượng đạm trong ngày, vẫn hỗ trợ tốt việc duy trì/phát triển cơ."},{"id":12,"cat":"cat3","q":"Tổng EAA/BCAA có đủ cho người tập không?","a":"Đủ. Điểm mạnh là công thức đa nguồn và khả năng dùng đều đặn, nhẹ bụng. Tập nặng có thể tăng khẩu phần hoặc kết hợp ăn uống chính."},{"id":13,"cat":"cat3","q":"Chênh lệch protein 82.7% so với whey 90% làm giảm tăng cơ không?","a":"Không đáng kể nếu điều chỉnh đủ khẩu phần hằng ngày. Whey hấp thu nhanh; sản phẩm này nổi bật vì nhẹ bụng, thực vật cao cấp và có giá trị phục hồi từ Cordyceps."},{"id":14,"cat":"cat4","q":"Có thể thay thế whey không?","a":"Có, đặc biệt với người không dung nạp lactose, đầy bụng, ăn chay, hoặc cần đạm nhẹ bụng. Là lựa chọn thay thế/luân phiên cao cấp, không phải 'bản sao của whey'."},{"id":15,"cat":"cat4","q":"Khuyên khách bỏ hẳn whey sang sản phẩm này?","a":"Không ép bỏ. Khuyên dùng như lựa chọn cao cấp luân phiên để nhẹ bụng hơn, hoặc dùng vào ngày muốn tránh lactose, đồng thời nhận thêm lợi ích sức bền từ Cordyceps."},{"id":16,"cat":"cat4","q":"Phù hợp nhóm khách nào hơn whey?","a":"Người dễ đầy hơi khi dùng whey, không dung nạp lactose, người ăn chay/bán chay, người lớn tuổi cần đạm nhẹ bụng, người cần hỗ trợ sức bền từ Cordycepin."},{"id":17,"cat":"cat5","q":"Cordyceps/Cordycepin có vai trò gì?","a":"Protein hỗ trợ cơ, còn Cordyceps hỗ trợ sức bền, giảm mệt mỏi, phục hồi thể trạng. Lợi ích kép tạo sự khác biệt lớn với plant protein thường."},{"id":18,"cat":"cat5","q":"Hàm lượng Cordycepin?","a":"Khoảng 80-155 mg/kg bột (tùy lô). Quan trọng là có thêm hoạt chất sinh học hỗ trợ từ Đông trùng hạ thảo mà protein thường không có."},{"id":19,"cat":"cat5","q":"Cordyceps có giúp tăng cơ trực tiếp không?","a":"Không trực tiếp như protein. Vai trò của nó là hỗ trợ năng lượng, sức bền, phục hồi tổng thể, bổ trợ cho nền protein 80+ phát huy hiệu quả."},{"id":20,"cat":"cat5","q":"Dùng bao lâu cảm nhận được hiệu quả Cordyceps?","a":"Cần dùng đều đặn, không tức thì như caffeine. Cảm nhận 2 lớp: đủ đạm phục hồi ngắn hạn sau tập, và cải thiện sức bền/thể trạng khi dùng dài hạn."},{"id":21,"cat":"cat6","q":"Phù hợp người không dung nạp lactose không?","a":"Rất phù hợp. 100% đạm thực vật, không sữa bò, khắc phục được tình trạng đầy hơi, đau bụng khi dùng whey."},{"id":22,"cat":"cat6","q":"Hấp thu chậm hơn whey có lợi gì?","a":"Tốc độ ổn định là lợi thế cho người dùng hằng ngày, người lớn tuổi, hệ tiêu hóa nhạy cảm. Dễ duy trì lâu dài."},{"id":23,"cat":"cat6","q":"Người tiểu đường dùng được không?","a":"Sản phẩm không đường, dùng chất ngọt an toàn, đường thấp. NHƯNG đang điều trị cần hỏi bác sĩ/chuyên gia trước khi dùng thường xuyên."},{"id":24,"cat":"cat6","q":"Tại sao pha có cặn dưới đáy?","a":"Đặc tính tự nhiên của đạm thực vật dạng bột mịn. Nên dùng bình lắc kỹ và uống ngay. Không ảnh hưởng chất lượng."},{"id":25,"cat":"cat6","q":"Bảo quản thế nào?","a":"Nơi khô ráo, dưới 30 độ C. Đóng kín nắp, dùng muỗng khô, dùng trong 30-60 ngày. Không để tủ lạnh tránh ngưng tụ ẩm làm vón bột."},{"id":26,"cat":"cat7","q":"Nam giới uống đậu nành bị nữ hóa?","a":"Không. Phytoestrogen hoạt tính cực yếu. Sản phẩm lại dùng đạm Isolate tổng hợp đa nguồn, nam giới dùng hợp lý không lo nữ hóa."},{"id":27,"cat":"cat7","q":"Lo ngại ung thư kiêng đạm đậu nành?","a":"Người khỏe bình thường an toàn. Người đang điều trị ung thư, bệnh nội tiết cần hỏi bác sĩ. Sản phẩm tổng hợp đa nguồn, nhưng có bệnh lý thì cần tư vấn cá nhân hóa."},{"id":28,"cat":"cat7","q":"Người có u, hạch dùng được không?","a":"Cơ địa bình thường không kiêng thì có thể dùng bổ sung. Nếu có u/hạch bất thường hoặc đang theo dõi ung thư: HỎI BÁC SĨ trước. Không hù dọa, không cam kết bừa."},{"id":29,"cat":"cat7","q":"Giải thích khách sợ đậu nành?","a":"Đậu nành bị hiểu lầm do phytoestrogen. Sản phẩm dùng đạm isolate tổng hợp nhiều loại đạm. Rủi ro sức khỏe thường do lối sống (rượu, thuốc, lười vận động) hơn là đạm đậu nành."},{"id":30,"cat":"cat7","q":"Ai cần thận trọng khi dùng?","a":"Bệnh thận mạn, gan nặng, ung thư, tự miễn, dùng thuốc chống đông, dị ứng đậu nành/đậu hà lan, phụ nữ có thai/cho con bú -> Hỏi bác sĩ trước. Người khỏe mạnh dùng bình thường."}],"en":[{"id":1,"cat":"cat1","q":"What is ASN Cordy Protein 80+?","a":"It is a high-content isolate plant protein designed for daily protein supplementation, endurance support, and recovery. The key difference is its multi-source Protein 80+ formula plus Cordyceps/Cordycepin."},{"id":2,"cat":"cat1","q":"How is it different from regular plant protein?","a":"It stands out in four ways: 80%+ high protein content, isolate protein sources, a multi-source blend (pea, rice, soy) to balance amino acids, and added Cordyceps/Cordycepin for endurance support, which most plant proteins do not include."},{"id":3,"cat":"cat1","q":"Why should we not call it cereal powder or bean powder?","a":"Cereal powders are usually high in starch, low in protein, and hard to track for macros. ASN Cordy Protein 80+ is a high-content protein isolate with clear protein delivery for goal-oriented users."},{"id":4,"cat":"cat1","q":"How should the core value be presented?","a":"Premium plant protein + gentle digestion + lactose-free + endurance/recovery support from Cordyceps. It suits training users, daily protein supplementation, and customers who feel bloated with whey."},{"id":5,"cat":"cat2","q":"How much actual protein is in each serving?","a":"At around 82.7% protein, 25g of powder provides about 20-21g protein. A 30g serving provides around 24-25g protein, making macro tracking clear."},{"id":6,"cat":"cat2","q":"How many grams should one serving be?","a":"A basic serving is 25-30g. Heavy trainers who need more recovery support may consider 30-40g/day depending on total diet."},{"id":7,"cat":"cat2","q":"Can customers use it 1-2 times per day?","a":"Yes, depending on needs. People lacking protein may use it once daily; regular trainers can use it post-workout or between meals. Total daily protein should be calculated rather than assuming more is always better."},{"id":8,"cat":"cat2","q":"Is there a maximum daily dose for liver/kidney safety?","a":"Healthy people can use it as a daily protein source. Customers with chronic kidney disease or severe liver disease should consult a doctor. Dosage should follow personal protein needs, not excessive random use."},{"id":9,"cat":"cat3","q":"What stands out in its amino acid profile?","a":"It does not depend on one source. The formula combines soy, pea, and rice protein to complement amino acid strengths and create a more balanced profile than single-source plant protein."},{"id":10,"cat":"cat3","q":"Is leucine sufficient to support muscle protein synthesis?","a":"If the product has around 5.4g leucine per 100g powder, then 30g provides about 1.62g leucine and 40g provides about 2.16g. A 30-40g/day portion can support recovery and muscle synthesis well."},{"id":11,"cat":"cat3","q":"If leucine is lower than whey, is it less effective?","a":"Whey has fast absorption as an advantage, but ASN Cordy Protein 80+ is gentler, easier for long-term use, and includes Cordycepin for recovery support. With enough total daily protein, it can still support muscle maintenance and development."},{"id":12,"cat":"cat3","q":"Are total EAA/BCAA levels enough for training users?","a":"Yes. Its strengths are the multi-source formula and consistent, easy digestion. Heavy trainers can increase serving size or combine it with regular meals."},{"id":13,"cat":"cat3","q":"Does 82.7% protein versus 90% whey reduce muscle gain?","a":"Not meaningfully if daily intake is adjusted. Whey absorbs quickly; this product stands out for gentle digestion, premium plant-based positioning, and Cordyceps-based recovery value."},{"id":14,"cat":"cat4","q":"Can it replace whey?","a":"Yes, especially for people who are lactose intolerant, feel bloated, follow vegetarian/flexitarian diets, or need a gentler protein. It is a premium replacement or rotation option, not a whey copy."},{"id":15,"cat":"cat4","q":"Should we tell customers to quit whey completely?","a":"No need to force switching. Recommend it as a premium rotation option for a gentler feel, for days when they want to avoid lactose, and for added endurance support from Cordyceps."},{"id":16,"cat":"cat4","q":"Which groups may prefer it over whey?","a":"People who bloat with whey, people with lactose intolerance, vegetarian/flexitarian customers, older adults needing gentle protein, and customers who want endurance support from Cordycepin."},{"id":17,"cat":"cat5","q":"What is the role of Cordyceps/Cordycepin?","a":"Protein supports muscle, while Cordyceps supports endurance, fatigue reduction, and overall recovery. This dual benefit creates a major difference from regular plant protein."},{"id":18,"cat":"cat5","q":"What is the Cordycepin content?","a":"Around 80-155 mg/kg powder depending on batch. The important point is that it includes bioactive support from Cordyceps that regular protein powders usually do not have."},{"id":19,"cat":"cat5","q":"Does Cordyceps directly build muscle?","a":"Not directly like protein. Its role is to support energy, endurance, and overall recovery, complementing the Protein 80+ base."},{"id":20,"cat":"cat5","q":"How long does it take to feel Cordyceps benefits?","a":"It requires consistent use and is not instant like caffeine. Customers may feel two layers: short-term recovery from sufficient protein after training, and longer-term endurance/body-condition support."},{"id":21,"cat":"cat6","q":"Is it suitable for lactose-intolerant people?","a":"Very suitable. It is 100% plant-based, contains no cow’s milk, and helps avoid bloating or stomach discomfort that some customers experience with whey."},{"id":22,"cat":"cat6","q":"What is the benefit of slower absorption than whey?","a":"A steadier digestion speed is beneficial for daily users, older adults, and people with sensitive digestion. It is easier to maintain long-term."},{"id":23,"cat":"cat6","q":"Can people with diabetes use it?","a":"It is sugar-free, uses safe sweeteners, and is low in sugar. However, customers under treatment should consult a doctor or professional before regular use."},{"id":24,"cat":"cat6","q":"Why is there residue after mixing?","a":"This is a natural characteristic of fine plant protein powder. Use a shaker, shake well, and drink soon after mixing. It does not affect quality."},{"id":25,"cat":"cat6","q":"How should it be stored?","a":"Store in a dry place below 30°C. Close the lid tightly, use a dry scoop, and consume within 30-60 days. Do not refrigerate, as condensation can cause clumping."},{"id":26,"cat":"cat7","q":"Will soy protein feminize men?","a":"No. Phytoestrogens are extremely weak. The product also uses isolate protein from multiple sources, so reasonable use does not cause feminization."},{"id":27,"cat":"cat7","q":"What about cancer concerns and soy protein?","a":"It is safe for generally healthy people. Customers undergoing cancer treatment or endocrine-related treatment should consult a doctor. Because medical conditions require personalized advice."},{"id":28,"cat":"cat7","q":"Can someone with lumps or swollen lymph nodes use it?","a":"If they are otherwise healthy and not instructed to avoid it, they may use it as a supplement. If they have abnormal lumps/lymph nodes or are being monitored for cancer, they must consult a doctor first. Do not scare them or make careless promises."},{"id":29,"cat":"cat7","q":"How do we explain it to customers afraid of soy?","a":"Soy is often misunderstood because of phytoestrogens. This product uses isolate protein from multiple sources. Health risks usually come more from lifestyle factors such as alcohol, smoking, and inactivity than from soy protein itself."},{"id":30,"cat":"cat7","q":"Who should be cautious when using it?","a":"People with chronic kidney disease, severe liver disease, cancer, autoimmune conditions, those using anticoagulants, people allergic to soy/pea, and pregnant/breastfeeding women should consult a doctor first. Healthy users can use it normally."}]},"quiz":{"vi":[{"q":"ASN Cordy Protein 80+ bản chất là sản phẩm gì?","options":["Bột ngũ cốc tăng cân","Đạm thực vật Isolate hàm lượng cao","Thuốc phục hồi cơ bắp","Đạm Whey pha Đông trùng hạ thảo"],"ans":1,"exp":"Đúng. Đây là đạm thực vật Isolate hàm lượng cao (80%+), không phải bột ngũ cốc hay thuốc."},{"q":"Đặc điểm nào KHÔNG đúng khi nói về công thức của sản phẩm?","options":["Tổng hợp đa nguồn: Pea, Rice, Soy","Không chứa Lactose","Sử dụng đường kính để tạo vị ngon","Bổ sung Cordyceps/Cordycepin"],"ans":2,"exp":"Đúng. Sản phẩm KHÔNG ĐƯỜNG, sử dụng chất tạo ngọt an toàn, phù hợp kiểm soát cân nặng."},{"q":"Khách hàng muốn dùng ASN Cordy Protein 80+ thay thế hoàn toàn 3 bữa ăn chính có được không?","options":["Được, vì nó đủ chất","Không, chỉ nên dùng làm bữa phụ bổ sung đạm","Được nếu uống gấp đôi liều","Không, vì đạm thực vật không tốt"],"ans":1,"exp":"Sản phẩm cung cấp đạm tinh khiết, không đủ carb/fat/vi chất để thay thế bữa ăn chính. Chỉ dùng làm bữa phụ."},{"q":"Vai trò chính của thành phần Cordyceps/Cordycepin trong sản phẩm là gì?","options":["Kích thích tăng cơ bắp trực tiếp như Steroid","Hỗ trợ tiêu hóa tốt hơn","Hỗ trợ sức bền, phục hồi và thể trạng","Làm bột dễ tan hơn"],"ans":2,"exp":"Cordycepin đóng vai trò hỗ trợ sức bền, giảm mệt mỏi và phục hồi, kết hợp với Protein tạo thành lợi ích kép."},{"q":"Khách nam lo lắng uống đạm đậu nành bị 'nữ hóa', bạn tư vấn thế nào?","options":["Khuyên đổi sang uống Whey","Giải thích Phytoestrogen hoạt tính rất yếu, an toàn cho nam","Nói rằng chỉ nữ mới nên uống","Sản phẩm đã lọc sạch 100% Phytoestrogen"],"ans":1,"exp":"Phytoestrogen trong đậu nành cực kỳ yếu, không gây nữ hóa. Hơn nữa sản phẩm tổng hợp từ nhiều nguồn đạm (Pea, Rice, Soy)."},{"q":"Khi gặp khách hàng đang bị bệnh thận mạn hoặc ung thư muốn mua sản phẩm, bạn nên làm gì?","options":["Chốt sale ngay vì là đồ thực vật rất lành","Cam kết sản phẩm chữa được bệnh","Khuyên khách nhất định phải hỏi ý kiến bác sĩ trước","Bảo khách tự giảm nửa liều là được"],"ans":2,"exp":"Nguyên tắc an toàn: Có bệnh lý đặc biệt/đang dùng thuốc phải hỏi ý kiến bác sĩ trước khi dùng thường xuyên."},{"q":"Lợi thế lớn nhất của sản phẩm này so với Whey khi tư vấn tại Gym là gì?","options":["Hấp thu nhanh hơn Whey","Nhẹ bụng, không lactose, có Cordycepin hỗ trợ sức bền","Giá rẻ hơn rất nhiều","Có nhiều vị ngon hơn"],"ans":1,"exp":"Lợi thế tư vấn chốt sale là tính nhẹ bụng, không lactose (phù hợp ai uống whey bị đầy hơi/mụn) và có thêm điểm cộng từ Cordycepin."},{"q":"Sản phẩm có giúp cảm nhận năng lượng bùng nổ tức thì như Pre-workout (Caffeine) không?","options":["Có, uống xong sung ngay","Không, Cordyceps hỗ trợ sức bền cần dùng đều đặn","Có, nếu uống 2 muỗng","Chỉ sung khi uống lúc đói"],"ans":1,"exp":"Cordyceps không kích thích hệ thần kinh tức thì như Caffeine. Cần duy trì đều để thấy sức bền và sự phục hồi tăng lên."},{"q":"Tại sao sản phẩm được gọi là 'Tổng hợp đa nguồn' (Blend)?","options":["Vì có cả đạm thực vật và động vật","Vì kết hợp Đậu Hà Lan, Gạo, Đậu nành để tối ưu Acid Amin","Vì có nhiều mùi vị","Vì pha trộn với ngũ cốc"],"ans":1,"exp":"Kết hợp Pea, Rice, Soy giúp bù trừ các acid amin thiết yếu cho nhau, tạo hồ sơ acid amin cân bằng hơn."},{"q":"Câu nào dưới đây là 'DON'T' (Không được phép nói) khi tư vấn?","options":["Sản phẩm giúp bổ sung đạm thực vật hàm lượng cao","Sản phẩm nhẹ bụng, rất hợp cho người sợ lactose","Uống sản phẩm này sẽ chữa khỏi bệnh suy nhược","Có thể dùng luân phiên với Whey"],"ans":2,"exp":"Tuyệt đối KHÔNG claim y tế (không nói sản phẩm chữa bệnh). Đây là Thực phẩm bổ sung."}],"en":[{"q":"What is ASN Cordy Protein 80+ by nature?","options":["A weight-gain cereal powder","A high-content isolate plant protein","A muscle-recovery medicine","Whey protein mixed with Cordyceps"],"ans":1,"exp":"Correct. It is a high-content isolate plant protein (80%+), not cereal powder or medicine."},{"q":"Which statement is NOT true about the formula?","options":["Multi-source blend: Pea, Rice, Soy","Lactose-free","Uses refined sugar for taste","Contains Cordyceps/Cordycepin"],"ans":2,"exp":"Correct. The product is sugar-free, uses safe sweeteners, and fits weight-management goals."},{"q":"Can customers use ASN Cordy Protein 80+ to fully replace three main meals?","options":["Yes, because it is complete nutrition","No, it should be used as a protein snack","Yes, if they double the dose","No, because plant protein is not good"],"ans":1,"exp":"The product provides clean protein but not enough carbs/fats/micronutrients to replace a main meal. Use it as a protein snack."},{"q":"What is the main role of Cordyceps/Cordycepin in the product?","options":["Directly stimulates muscle growth like steroids","Improves digestion only","Supports endurance, recovery, and body condition","Makes the powder dissolve more easily"],"ans":2,"exp":"Cordycepin supports endurance, fatigue reduction, and recovery. Together with protein, it creates a dual benefit."},{"q":"A male customer worries that soy protein will feminize him. How should you respond?","options":["Tell him to switch to whey","Explain that phytoestrogens are very weak and safe for men","Say only women should use it","Say the product removes 100% of phytoestrogens"],"ans":1,"exp":"Soy phytoestrogens are extremely weak and do not feminize men. The product is also blended from multiple protein sources: Pea, Rice, Soy."},{"q":"If a customer with chronic kidney disease or cancer wants to buy it, what should you do?","options":["Close the sale immediately because plant-based means harmless","Promise that it can cure the disease","Tell the customer to consult a doctor first","Tell the customer to simply use half the dose"],"ans":2,"exp":"Safety rule: customers with special medical conditions or medication use should consult a doctor before regular use."},{"q":"What is the biggest advantage versus whey for gym consultation?","options":["It absorbs faster than whey","Gentle digestion, lactose-free, and Cordycepin for endurance support","It is much cheaper","It has many more flavors"],"ans":1,"exp":"The key sales advantage is gentle digestion, no lactose, suitability for people who feel bloated or get acne from whey, and added Cordycepin value."},{"q":"Does it create instant explosive energy like a caffeine pre-workout?","options":["Yes, users feel energized immediately","No, Cordyceps supports endurance with consistent use","Yes, if they use two scoops","Only if taken on an empty stomach"],"ans":1,"exp":"Cordyceps does not stimulate the nervous system instantly like caffeine. Consistent use is needed for endurance and recovery support."},{"q":"Why is it called a multi-source blend?","options":["Because it has both plant and animal protein","Because it combines pea, rice, and soy to optimize amino acids","Because it has many flavors","Because it is mixed with cereal grains"],"ans":1,"exp":"Pea, Rice, and Soy protein complement essential amino acids and create a more balanced amino acid profile."},{"q":"Which sentence is a DON'T in consultation?","options":["The product helps add high-content plant protein","It is gentle on the stomach and suitable for people avoiding lactose","This product will cure weakness/fatigue","It can be rotated with whey"],"ans":2,"exp":"Never make medical treatment claims. This is a dietary supplement."}]}}};
+        let currentLang = 'vi';
         let activeFilter = 'all';
         let currentSearchTerm = '';
         let currentObjectionPage = 0;
         const objectionsPerPage = 8;
+        let currentQIndex = 0;
+        let score = 0;
+        let quizActive = false;
+        let answered = false;
+        let lastSelectedIdx = null;
 
-        // Safe storage helpers: avoid breaking the whole app if localStorage is blocked
-        // on file://, private mode, or a hosting environment with strict browser settings.
         function getStorageItem(key) {
-            try {
-                return window.localStorage ? window.localStorage.getItem(key) : null;
-            } catch (err) {
-                return null;
-            }
+            try { return window.localStorage ? window.localStorage.getItem(key) : null; } catch (err) { return null; }
         }
-
         function setStorageItem(key, value) {
-            try {
-                if (window.localStorage) window.localStorage.setItem(key, value);
-            } catch (err) {
-                // Ignore storage errors. Theme still toggles for the current session.
-            }
+            try { if (window.localStorage) window.localStorage.setItem(key, value); } catch (err) {}
         }
-
-        function escapeRegExp(text) {
-            return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        function getPage() { return DATA.page[currentLang]; }
+        function getShared(type) { return DATA.shared[type][currentLang]; }
+        function setHTML(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
+        function setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
+        function escapeRegExp(text) { return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;'}[char]));
+        }
+        function interpolate(template, values) {
+            return template.replace(/\{(\w+)\}/g, (_, key) => values[key] ?? '');
+        }
+        function highlightText(text, keyword) {
+            const safeText = escapeHtml(text);
+            const cleanKeyword = keyword.trim();
+            if (!cleanKeyword) return safeText;
+            const regex = new RegExp(`(${escapeRegExp(escapeHtml(cleanKeyword))})`, 'gi');
+            return safeText.replace(regex, '<mark>$1</mark>');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Theme Toggle
+            initTheme();
+            initLanguage();
+            initEvents();
+            applyLanguage();
+        });
+
+        function initTheme() {
+            const savedTheme = getStorageItem('asn-color-theme');
+            if (savedTheme === 'light') document.documentElement.classList.remove('dark');
+            else document.documentElement.classList.add('dark');
+        }
+
+        function initLanguage() {
+            const savedLang = getStorageItem('asn-lang');
+            currentLang = savedLang === 'en' ? 'en' : 'vi';
+        }
+
+        function initEvents() {
             const themeBtn = document.getElementById('theme-toggle');
-            const htmlTag = document.documentElement;
-            
-            // Check local storage or system preference
-            const savedTheme = getStorageItem('color-theme');
-            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                htmlTag.classList.add('dark');
-            } else {
-                htmlTag.classList.remove('dark');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    document.documentElement.classList.toggle('dark');
+                    setStorageItem('asn-color-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+                });
             }
 
-            themeBtn.addEventListener('click', () => {
-                htmlTag.classList.toggle('dark');
-                if (htmlTag.classList.contains('dark')) {
-                    setStorageItem('color-theme', 'dark');
-                } else {
-                    setStorageItem('color-theme', 'light');
-                }
+            const homeBrandBtn = document.getElementById('home-brand-btn');
+            if (homeBrandBtn) homeBrandBtn.addEventListener('click', goToHomePage);
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
             });
 
-            // Back to top
             const backToTopBtn = document.getElementById('back-to-top');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 500) {
@@ -850,29 +316,11 @@
             });
             backToTopBtn.addEventListener('click', () => window.scrollTo(0, 0));
 
-            // Click brand/logo to reload the home page/top hero section.
-            const homeBrandBtn = document.getElementById('home-brand-btn');
-            if (homeBrandBtn) {
-                homeBrandBtn.addEventListener('click', goToHomePage);
-            }
-
-            // Render Objections
-            initObjectionPagination();
-
-            // Render Q&A Logic
-            activeFilter = 'all';
-            currentSearchTerm = '';
-            
-            renderQAFilters();
-            renderQAList();
-
-            // Search listener
-            document.getElementById('qa-search').addEventListener('input', (e) => {
+            const search = document.getElementById('qa-search');
+            search.addEventListener('input', (e) => {
                 currentSearchTerm = e.target.value.toLowerCase();
                 renderQAList();
             });
-
-            // Expand/Collapse All
             document.getElementById('btn-expand-all').addEventListener('click', () => {
                 document.querySelectorAll('#qa-container .accordion-item').forEach(el => el.classList.add('active'));
             });
@@ -880,337 +328,318 @@
                 document.querySelectorAll('#qa-container .accordion-item').forEach(el => el.classList.remove('active'));
             });
 
-            // Quiz Logic Init
-            const quizTotalIntro = document.getElementById('quiz-total-intro');
-            const quizTotalCount = document.getElementById('quiz-total-count');
-            if (quizTotalIntro) quizTotalIntro.innerText = quizData.length;
-            if (quizTotalCount) quizTotalCount.innerText = quizData.length;
-            initQuiz();
-        });
+            document.getElementById('objection-prev').addEventListener('click', () => changeObjectionPage(-1));
+            document.getElementById('objection-next').addEventListener('click', () => changeObjectionPage(1));
 
-        // --- HOME NAVIGATION ---
-        function goToHomePage() {
-            const baseUrl = window.location.href.split('#')[0];
-
-            // Always reload the base URL so the user lands back on the home/hero section
-            // and any quiz/FAQ state is reset. Works on hosting and when opened as file://.
-            try {
-                window.history.replaceState(null, document.title, baseUrl);
-                window.location.reload();
-            } catch (err) {
-                window.location.href = baseUrl;
-            }
+            document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
+            document.getElementById('next-q-btn').addEventListener('click', nextQuestion);
+            document.getElementById('restart-quiz-btn').addEventListener('click', () => { currentQIndex = 0; score = 0; startQuiz(); });
         }
 
-        // --- OBJECTION HANDLING FAQ PAGINATION ---
-        function initObjectionPagination() {
-            const prevBtn = document.getElementById('objection-prev');
-            const nextBtn = document.getElementById('objection-next');
+        function setLanguage(lang) {
+            if (!DATA.page[lang] || lang === currentLang) return;
+            currentLang = lang;
+            setStorageItem('asn-lang', lang);
+            applyLanguage();
+        }
 
-            if (prevBtn) {
-                prevBtn.addEventListener('click', () => changeObjectionPage(-1));
-            }
+        function applyLanguage() {
+            const p = getPage();
+            document.documentElement.lang = currentLang;
+            document.title = p.meta.title;
 
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => changeObjectionPage(1));
-            }
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === currentLang));
+            const langToggle = document.getElementById('language-toggle');
+            if (langToggle) langToggle.setAttribute('aria-label', p.nav.langAria);
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) themeBtn.setAttribute('aria-label', p.nav.themeAria);
+            const homeBrandBtn = document.getElementById('home-brand-btn');
+            if (homeBrandBtn) homeBrandBtn.setAttribute('aria-label', p.nav.homeAria);
+
+            setText('nav-qa', p.nav.qa); setText('nav-quiz', p.nav.quiz);
+            setHTML('hero-title', p.hero.title); setText('hero-subtitle', p.hero.subtitle); setHTML('hero-position', p.hero.position);
+            setText('hero-cta-qa', p.hero.ctaQA); setText('hero-cta-quiz', p.hero.ctaQuiz); renderHeroPills();
+
+            setText('overview-title', p.overview.title); renderOverview();
+            setText('values-title', p.values.title); setText('values-subtitle', p.values.subtitle); renderValues();
+            setText('profiles-title', p.profiles.title); renderProfiles();
+            setHTML('safety-title', `<i class="fa-solid fa-triangle-exclamation"></i> ${p.profiles.safetyTitle}`); setHTML('safety-body', p.profiles.safetyBody);
+
+            setText('objection-title', p.objections.title); setText('objection-subtitle', p.objections.subtitle); setText('objection-page-label', p.objections.pageLabel);
+            document.getElementById('objection-prev').setAttribute('aria-label', p.objections.prevAria);
+            document.getElementById('objection-next').setAttribute('aria-label', p.objections.nextAria);
+
+            setText('qa-title', p.qa.title); document.getElementById('qa-search').placeholder = p.qa.placeholder;
+            setText('btn-expand-all-text', p.qa.expand); setText('btn-collapse-all-text', p.qa.collapse); setText('qa-no-result', p.qa.noResult);
+
+            setText('quiz-title', p.quiz.title); updateQuizStaticText();
+            setText('sales-script-title', p.sales.scriptTitle); setText('sales-rules-title', p.sales.rulesTitle); renderSales();
+            setText('footer-title', p.footer.title); setHTML('footer-list', p.footer.items.map(item => `<li>${item}</li>`).join('')); setText('footer-cta', p.footer.cta); setText('footer-note', p.footer.note);
 
             renderObjections();
+            renderQAFilters();
+            renderQAList();
+            if (!document.getElementById('quiz-result').classList.contains('hidden')) showResult();
+            else if (!document.getElementById('quiz-area').classList.contains('hidden')) renderQuestion();
+        }
+
+        function renderHeroPills() {
+            const p = getPage();
+            document.getElementById('hero-pills').innerHTML = p.hero.pills.map(pill => `
+                <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm border border-gray-200 dark:border-gray-700 text-sm font-bold flex items-center gap-2">
+                    <i class="fa-solid ${pill.icon}"></i> ${escapeHtml(pill.text)}
+                </span>`).join('');
+        }
+
+        function renderOverview() {
+            const p = getPage();
+            document.getElementById('overview-grid').innerHTML = p.overview.cards.map(card => `
+                <div class="p-6 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-100 dark:border-gray-600 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 text-asn-red rounded-full flex items-center justify-center mb-4 text-xl"><i class="fa-solid ${card.icon}"></i></div>
+                    <h3 class="font-bold text-lg mb-2 font-oswald">${escapeHtml(card.title)}</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">${escapeHtml(card.body)}</p>
+                </div>`).join('');
+        }
+
+        function renderValues() {
+            const p = getPage();
+            document.getElementById('values-list').innerHTML = p.values.items.map(item => `
+                <div class="flex bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border-l-4 border-asn-red">
+                    <div class="mr-4 mt-1 text-asn-red text-xl"><i class="fa-solid fa-check-circle"></i></div>
+                    <div><h4 class="font-bold font-oswald text-lg">${escapeHtml(item.title)}</h4><p class="text-sm text-gray-600 dark:text-gray-300 mt-1">${escapeHtml(item.body)}</p></div>
+                </div>`).join('');
+        }
+
+        function renderProfiles() {
+            const p = getPage();
+            document.getElementById('profiles-grid').innerHTML = p.profiles.cards.map((card, idx) => `
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 border border-gray-200 dark:border-gray-600 flex flex-col h-full ${idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''}">
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 ${card.color} text-white rounded-lg flex items-center justify-center text-lg"><i class="fa-solid ${card.icon}"></i></div><h3 class="font-bold font-oswald text-xl text-gray-900 dark:text-white">${escapeHtml(card.title)}</h3></div>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4 flex-grow list-disc pl-5">${card.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>
+                    <div class="p-3 bg-red-50 dark:bg-gray-800 rounded text-sm italic border-l-2 border-asn-red mt-auto">"${escapeHtml(card.quote)}"</div>
+                </div>`).join('');
+        }
+
+        function renderSales() {
+            const p = getPage();
+            document.getElementById('sales-scripts').innerHTML = p.sales.scripts.map(script => script.highlight ? `
+                <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded border-l-4 border-asn-red text-center">
+                    <h4 class="font-bold mb-2 font-oswald text-asn-red text-lg">${escapeHtml(script.title)}</h4>
+                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">"${escapeHtml(script.body)}"</p>
+                </div>` : `
+                <div class="bg-gray-50 dark:bg-gray-700 p-5 rounded border-l-4 border-gray-800 dark:border-gray-400">
+                    <h4 class="font-bold mb-2 flex justify-between"><span class="text-gray-800 dark:text-gray-200">${escapeHtml(script.title)}</span> <i class="fa-solid ${script.icon} text-gray-400"></i></h4>
+                    <p class="text-sm italic text-gray-700 dark:text-gray-300">"${escapeHtml(script.body)}"</p>
+                </div>`).join('');
+
+            document.getElementById('sales-rules').innerHTML = `
+                <div class="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded p-4">
+                    <h4 class="font-bold text-green-700 dark:text-green-500 mb-3 border-b border-green-200 dark:border-green-800 pb-2 flex items-center gap-2"><i class="fa-solid fa-check-circle"></i> ${escapeHtml(p.sales.doTitle)}</h4>
+                    <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">${p.sales.doItems.map(item => `<li><i class="fa-solid fa-check text-green-500 mr-1"></i> ${escapeHtml(item)}</li>`).join('')}</ul>
+                </div>
+                <div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded p-4">
+                    <h4 class="font-bold text-red-700 dark:text-red-500 mb-3 border-b border-red-200 dark:border-red-800 pb-2 flex items-center gap-2"><i class="fa-solid fa-xmark-circle"></i> ${escapeHtml(p.sales.dontTitle)}</h4>
+                    <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">${p.sales.dontItems.map(item => `<li><i class="fa-solid fa-xmark text-red-500 mr-1"></i> ${item}</li>`).join('')}</ul>
+                </div>`;
+        }
+
+        function goToHomePage() {
+            const baseUrl = window.location.href.split('#')[0];
+            try { window.history.replaceState(null, document.title, baseUrl); window.location.reload(); }
+            catch (err) { window.location.href = baseUrl; }
         }
 
         function changeObjectionPage(direction) {
-            if (!objectionsData.length) return;
-
-            const totalPages = Math.max(1, Math.ceil(objectionsData.length / objectionsPerPage));
-            const nextPage = currentObjectionPage + direction;
-            currentObjectionPage = Math.min(Math.max(nextPage, 0), totalPages - 1);
+            const data = getShared('objections');
+            if (!data.length) return;
+            const totalPages = Math.max(1, Math.ceil(data.length / objectionsPerPage));
+            currentObjectionPage = Math.min(Math.max(currentObjectionPage + direction, 0), totalPages - 1);
             renderObjections();
         }
 
         function renderObjections() {
-            const container = document.getElementById('objection-accordion');
-            const currentPageEl = document.getElementById('objection-current-page');
-            const totalPagesEl = document.getElementById('objection-total-pages');
-            const rangeEl = document.getElementById('objection-range');
-            const prevBtn = document.getElementById('objection-prev');
-            const nextBtn = document.getElementById('objection-next');
-
-            if (!container) return;
-
-            const totalItems = objectionsData.length;
+            const p = getPage();
+            const data = getShared('objections');
+            const totalItems = data.length;
             const totalPages = Math.max(1, Math.ceil(totalItems / objectionsPerPage));
-
-            if (currentObjectionPage > totalPages - 1) {
-                currentObjectionPage = totalPages - 1;
-            }
-
+            if (currentObjectionPage > totalPages - 1) currentObjectionPage = totalPages - 1;
             const start = currentObjectionPage * objectionsPerPage;
             const end = Math.min(start + objectionsPerPage, totalItems);
-            const pageItems = objectionsData.slice(start, end);
-
-            if (currentPageEl) currentPageEl.innerText = currentObjectionPage + 1;
-            if (totalPagesEl) totalPagesEl.innerText = totalPages;
-            if (rangeEl) {
-                rangeEl.innerText = totalItems
-                    ? `Hiển thị ${start + 1}-${end}/${totalItems} mục`
-                    : 'Chưa có nội dung phản đối';
-            }
-
-            if (prevBtn) prevBtn.disabled = currentObjectionPage === 0;
-            if (nextBtn) nextBtn.disabled = currentObjectionPage >= totalPages - 1;
-
-            if (!pageItems.length) {
-                container.innerHTML = '<div class="text-center text-gray-500 dark:text-gray-400 py-6">Chưa có nội dung phản đối.</div>';
-                return;
-            }
-
-            // Keep the original 8-item FAQ listing style. Add more objects to objectionsData
-            // and the buttons below will show the next groups without reloading the page.
-            container.innerHTML = pageItems.map((obj, localIdx) => {
+            const pageItems = data.slice(start, end);
+            setText('objection-current-page', currentObjectionPage + 1);
+            setText('objection-total-pages', totalPages);
+            setText('objection-range', totalItems ? interpolate(p.objections.rangeTemplate, {start: start + 1, end, total: totalItems}) : p.objections.empty);
+            document.getElementById('objection-prev').disabled = currentObjectionPage === 0;
+            document.getElementById('objection-next').disabled = currentObjectionPage >= totalPages - 1;
+            if (!pageItems.length) { setHTML('objection-accordion', `<div class="text-center text-gray-500 dark:text-gray-400 py-6">${escapeHtml(p.objections.empty)}</div>`); return; }
+            setHTML('objection-accordion', pageItems.map((obj, localIdx) => {
                 const itemNumber = start + localIdx + 1;
-                return `
-                <div class="accordion-item bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                return `<div class="accordion-item bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <button type="button" class="w-full text-left p-5 font-bold text-gray-900 dark:text-white flex justify-between items-center focus:outline-none" onclick="this.parentElement.classList.toggle('active')">
-                        <span class="flex items-start gap-3">
-                            <span class="text-asn-red shrink-0 font-oswald">${itemNumber}.</span>
-                            <span>${obj.q}</span>
-                        </span>
+                        <span class="flex items-start gap-3"><span class="text-asn-red shrink-0 font-oswald">${itemNumber}.</span><span>${escapeHtml(obj.q)}</span></span>
                         <i class="fa-solid fa-chevron-down chevron transition-transform shrink-0 ml-4"></i>
                     </button>
                     <div class="accordion-content bg-gray-50 dark:bg-gray-700/50 px-5 pb-0 text-sm text-gray-700 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700">
-                        <p class="pb-5"><strong class="text-asn-red">Gợi ý trả lời:</strong> ${obj.a}</p>
+                        <p class="pb-5"><strong class="text-asn-red">${escapeHtml(p.objections.answerLabel)}</strong> ${escapeHtml(obj.a)}</p>
                     </div>
                 </div>`;
-            }).join('');
+            }).join(''));
         }
 
-        // --- Q&A RENDER ---
         function renderQAFilters() {
-            const container = document.getElementById('qa-filters');
-            let html = '';
-            qaCategories.forEach(cat => {
-                html += `<button onclick="filterQA('${cat.id}')" class="qa-filter-btn px-4 py-2 rounded-full text-sm font-semibold border ${cat.id === 'all' ? 'bg-asn-red text-white border-asn-red' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-asn-red dark:hover:border-asn-red'} transition" data-id="${cat.id}">${cat.name}</button>`;
-            });
-            container.innerHTML = html;
+            const categories = getShared('qaCategories');
+            if (!categories.some(cat => cat.id === activeFilter)) activeFilter = 'all';
+            document.getElementById('qa-filters').innerHTML = categories.map(cat => `<button onclick="filterQA('${cat.id}')" class="qa-filter-btn px-4 py-2 rounded-full text-sm font-semibold border ${cat.id === activeFilter ? 'bg-asn-red text-white border-asn-red' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-asn-red dark:hover:border-asn-red'} transition" data-id="${cat.id}">${escapeHtml(cat.name)}</button>`).join('');
         }
 
         function filterQA(catId) {
-            // Update active state
-            document.querySelectorAll('.qa-filter-btn').forEach(btn => {
-                if(btn.dataset.id === catId) {
-                    btn.classList.add('bg-asn-red', 'text-white', 'border-asn-red');
-                    btn.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-gray-600');
-                } else {
-                    btn.classList.remove('bg-asn-red', 'text-white', 'border-asn-red');
-                    btn.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-300', 'border-gray-300', 'dark:border-gray-600');
-                }
-            });
-            // eslint-disable-next-line no-undef
             activeFilter = catId;
+            renderQAFilters();
             renderQAList();
         }
 
-        function highlightText(text, keyword) {
-            const cleanKeyword = keyword.trim();
-            if (!cleanKeyword) return text;
-            const regex = new RegExp(`(${escapeRegExp(cleanKeyword)})`, 'gi');
-            return text.replace(regex, '<mark>$1</mark>');
-        }
-
         function renderQAList() {
-            const container = document.getElementById('qa-container');
+            const p = getPage();
             const noResult = document.getElementById('qa-no-result');
-            
-            // eslint-disable-next-line no-undef
-            let filteredData = qaData;
-
-            // Filter by Cat
-            // eslint-disable-next-line no-undef
-            if (activeFilter !== 'all') {
-                // eslint-disable-next-line no-undef
-                filteredData = filteredData.filter(item => item.cat === activeFilter);
-            }
-
-            // Filter by Search
-            // eslint-disable-next-line no-undef
+            let filteredData = getShared('qa');
+            if (activeFilter !== 'all') filteredData = filteredData.filter(item => item.cat === activeFilter);
             if (currentSearchTerm.trim() !== '') {
-                // eslint-disable-next-line no-undef
-                filteredData = filteredData.filter(item => 
-                    // eslint-disable-next-line no-undef
-                    item.q.toLowerCase().includes(currentSearchTerm) || item.a.toLowerCase().includes(currentSearchTerm)
-                );
+                const term = currentSearchTerm.trim().toLowerCase();
+                filteredData = filteredData.filter(item => item.q.toLowerCase().includes(term) || item.a.toLowerCase().includes(term));
             }
-
-            if (filteredData.length === 0) {
-                container.innerHTML = '';
-                noResult.classList.remove('hidden');
-                return;
-            }
-
+            if (filteredData.length === 0) { setHTML('qa-container', ''); noResult.classList.remove('hidden'); return; }
             noResult.classList.add('hidden');
-            let html = '';
-            
-            filteredData.forEach(item => {
-                // eslint-disable-next-line no-undef
+            setHTML('qa-container', filteredData.map(item => {
                 const displayQ = highlightText(item.q, currentSearchTerm);
-                // eslint-disable-next-line no-undef
                 const displayA = highlightText(item.a, currentSearchTerm);
-                
-                html += `
-                <div class="accordion-item bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                return `<div class="accordion-item bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                     <button class="w-full text-left p-4 md:p-5 font-bold text-gray-900 dark:text-white flex justify-between items-center focus:outline-none" onclick="this.parentElement.classList.toggle('active')">
-                        <span class="flex items-start gap-3">
-                            <span class="text-gray-400 shrink-0 font-oswald w-6">Q${item.id}.</span>
-                            <span>${displayQ}</span>
-                        </span>
+                        <span class="flex items-start gap-3"><span class="text-gray-400 shrink-0 font-oswald w-6">Q${item.id}.</span><span>${displayQ}</span></span>
                         <i class="fa-solid fa-chevron-down chevron transition-transform shrink-0 ml-4 text-gray-400"></i>
                     </button>
                     <div class="accordion-content bg-gray-50 dark:bg-gray-700/50 px-5 pb-0 text-sm text-gray-700 dark:text-gray-300 border-t border-gray-100 dark:border-gray-700">
-                        <p class="pb-5 pl-9"><strong class="text-asn-red">A:</strong> ${displayA}</p>
+                        <p class="pb-5 pl-9"><strong class="text-asn-red">${escapeHtml(p.qa.answerLabel)}</strong> ${displayA}</p>
                     </div>
                 </div>`;
-            });
-            container.innerHTML = html;
+            }).join(''));
         }
 
         window.filterQA = filterQA;
         window.renderQAList = renderQAList;
 
-        // --- QUIZ LOGIC ---
-        let currentQIndex = 0;
-        let score = 0;
-        let quizActive = false;
-
-        function initQuiz() {
-            document.getElementById('start-quiz-btn').addEventListener('click', startQuiz);
-            document.getElementById('next-q-btn').addEventListener('click', nextQuestion);
-            document.getElementById('restart-quiz-btn').addEventListener('click', () => {
-                currentQIndex = 0;
-                score = 0;
-                startQuiz();
-            });
+        function updateQuizStaticText() {
+            const p = getPage();
+            const total = getShared('quiz').length;
+            setText('quiz-subtitle', interpolate(p.quiz.subtitleTemplate, {total}));
+            setText('quiz-intro-title', p.quiz.introTitle);
+            setText('start-quiz-btn', p.quiz.start);
+            setText('quiz-question-prefix', p.quiz.questionPrefix);
+            setText('quiz-total-count', total);
+            setText('quiz-result-title', p.quiz.resultTitle);
+            setText('quiz-score-label', p.quiz.scoreLabel);
+            setText('quiz-total-result', total);
+            setText('restart-quiz-btn', p.quiz.restart);
+            const nextBtn = document.getElementById('next-q-btn');
+            if (nextBtn) nextBtn.innerHTML = `${currentQIndex === total - 1 && answered ? p.quiz.viewResult : p.quiz.next} <i class="fa-solid ${currentQIndex === total - 1 && answered ? 'fa-flag-checkered' : 'fa-arrow-right'} ml-2"></i>`;
         }
 
         function startQuiz() {
+            currentQIndex = currentQIndex >= getShared('quiz').length ? 0 : currentQIndex;
+            if (document.getElementById('quiz-result').classList.contains('hidden')) { score = 0; currentQIndex = 0; }
+            answered = false; lastSelectedIdx = null; quizActive = true;
             document.getElementById('quiz-intro').classList.add('hidden');
             document.getElementById('quiz-result').classList.add('hidden');
             document.getElementById('quiz-area').classList.remove('hidden');
-            updateProgress();
-            renderQuestion();
+            updateProgress(); renderQuestion();
         }
 
         function renderQuestion() {
-            quizActive = true;
-            document.getElementById('next-q-btn').classList.add('hidden');
-            document.getElementById('feedback-area').classList.add('hidden');
-            
+            const p = getPage();
+            const quizData = getShared('quiz');
             const qData = quizData[currentQIndex];
-            document.getElementById('current-q-num').innerText = currentQIndex + 1;
-            document.getElementById('question-text').innerText = qData.q;
-
+            quizActive = !answered;
+            updateQuizStaticText();
+            document.getElementById('next-q-btn').classList.toggle('hidden', !answered);
+            document.getElementById('feedback-area').classList.toggle('hidden', !answered);
+            setText('current-q-num', currentQIndex + 1);
+            setText('question-text', qData ? qData.q : p.quiz.questionPlaceholder);
             const optsContainer = document.getElementById('options-container');
             optsContainer.innerHTML = '';
-
+            if (!qData) return;
             qData.options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'w-full text-left p-4 rounded border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-asn-red hover:bg-red-50 dark:hover:bg-red-900/20 transition font-medium focus:outline-none';
-                btn.innerHTML = `<span class="inline-block w-6 font-bold text-gray-400">${String.fromCharCode(65 + idx)}.</span> ${opt}`;
-                btn.onclick = () => checkAnswer(idx, btn);
+                btn.innerHTML = `<span class="inline-block w-6 font-bold text-gray-400">${String.fromCharCode(65 + idx)}.</span> ${escapeHtml(opt)}`;
+                btn.onclick = () => checkAnswer(idx);
                 optsContainer.appendChild(btn);
             });
+            if (answered) applyAnswerState();
         }
 
-        function checkAnswer(selectedIdx, btnElement) {
+        function checkAnswer(selectedIdx) {
             if (!quizActive) return;
-            quizActive = false; // Prevent multiple clicks
+            quizActive = false; answered = true; lastSelectedIdx = selectedIdx;
+            const qData = getShared('quiz')[currentQIndex];
+            if (selectedIdx === qData.ans) score++;
+            renderQuestion();
+        }
 
-            const qData = quizData[currentQIndex];
-            const isCorrect = (selectedIdx === qData.ans);
-            
-            // Highlight options
+        function applyAnswerState() {
+            const p = getPage();
+            const qData = getShared('quiz')[currentQIndex];
+            const isCorrect = lastSelectedIdx === qData.ans;
             const buttons = document.getElementById('options-container').children;
-            for(let i = 0; i < buttons.length; i++) {
+            for (let i = 0; i < buttons.length; i++) {
                 buttons[i].classList.remove('hover:border-asn-red', 'hover:bg-red-50', 'dark:hover:bg-red-900/20');
-                if (i === qData.ans) {
-                    buttons[i].classList.add('border-green-500', 'bg-green-50', 'dark:bg-green-900/20', 'text-green-800', 'dark:text-green-300'); // Correct answer
-                } else if (i === selectedIdx && !isCorrect) {
-                    buttons[i].classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/20', 'text-red-800', 'dark:text-red-300'); // Wrong answer
-                } else {
-                    buttons[i].classList.add('opacity-50');
-                }
+                if (i === qData.ans) buttons[i].classList.add('border-green-500', 'bg-green-50', 'dark:bg-green-900/20', 'text-green-800', 'dark:text-green-300');
+                else if (i === lastSelectedIdx && !isCorrect) buttons[i].classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900/20', 'text-red-800', 'dark:text-red-300');
+                else buttons[i].classList.add('opacity-50');
             }
-
-            // Update score
-            if (isCorrect) score++;
-
-            // Show feedback
             const feedbackArea = document.getElementById('feedback-area');
             const feedbackTitle = document.getElementById('feedback-title');
-            
             feedbackArea.classList.remove('hidden', 'bg-green-100', 'dark:bg-green-900/40', 'bg-red-100', 'dark:bg-red-900/40', 'text-green-800', 'dark:text-green-300', 'text-red-800', 'dark:text-red-300');
-            
-            if(isCorrect) {
-                feedbackArea.classList.add('bg-green-100', 'dark:bg-green-900/40', 'text-green-800', 'dark:text-green-300');
-                feedbackTitle.innerHTML = '<i class="fa-solid fa-circle-check"></i> Chính xác!';
-            } else {
-                feedbackArea.classList.add('bg-red-100', 'dark:bg-red-900/40', 'text-red-800', 'dark:text-red-300');
-                feedbackTitle.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Chưa đúng!';
-            }
-            document.getElementById('feedback-text').innerText = qData.exp;
-
-            // Show Next Button
+            if (isCorrect) { feedbackArea.classList.add('bg-green-100', 'dark:bg-green-900/40', 'text-green-800', 'dark:text-green-300'); feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${p.quiz.correct}`; }
+            else { feedbackArea.classList.add('bg-red-100', 'dark:bg-red-900/40', 'text-red-800', 'dark:text-red-300'); feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${p.quiz.wrong}`; }
+            setText('feedback-text', qData.exp);
             const nextBtn = document.getElementById('next-q-btn');
             nextBtn.classList.remove('hidden');
-            if (currentQIndex === quizData.length - 1) {
-                nextBtn.innerHTML = 'Xem Kết Quả <i class="fa-solid fa-flag-checkered ml-2"></i>';
+            if (currentQIndex === getShared('quiz').length - 1) {
+                nextBtn.innerHTML = `${p.quiz.viewResult} <i class="fa-solid fa-flag-checkered ml-2"></i>`;
                 nextBtn.classList.add('bg-asn-red', 'hover:bg-red-700');
                 nextBtn.classList.remove('bg-gray-800', 'dark:bg-gray-600');
+            } else {
+                nextBtn.innerHTML = `${p.quiz.next} <i class="fa-solid fa-arrow-right ml-2"></i>`;
+                nextBtn.classList.remove('bg-asn-red', 'hover:bg-red-700');
+                nextBtn.classList.add('bg-gray-800', 'dark:bg-gray-600');
             }
         }
 
         function nextQuestion() {
-            currentQIndex++;
-            updateProgress();
-            
-            if (currentQIndex < quizData.length) {
-                renderQuestion();
-            } else {
-                showResult();
-            }
+            currentQIndex++; answered = false; lastSelectedIdx = null; updateProgress();
+            if (currentQIndex < getShared('quiz').length) renderQuestion(); else showResult();
         }
 
         function updateProgress() {
-            const percent = (currentQIndex / quizData.length) * 100;
+            const percent = (currentQIndex / getShared('quiz').length) * 100;
             document.getElementById('quiz-progress').style.width = `${percent}%`;
         }
 
         function showResult() {
+            const p = getPage();
             document.getElementById('quiz-area').classList.add('hidden');
             document.getElementById('quiz-result').classList.remove('hidden');
-            
-            document.getElementById('final-score').innerText = score;
-            
+            setText('final-score', score);
             const msgEl = document.getElementById('result-message');
             const iconEl = document.getElementById('result-icon');
-            
-            if (score >= 8) {
-                iconEl.innerText = "🏆";
-                msgEl.innerHTML = "<span class='text-green-600 dark:text-green-400'>Tuyệt vời! Bạn đã nắm rất vững kiến thức sản phẩm. Hãy tự tin tư vấn nhé!</span>";
-            } else if (score >= 5) {
-                iconEl.innerText = "💪";
-                msgEl.innerHTML = "<span class='text-yellow-600 dark:text-yellow-400'>Khá tốt! Bạn đã hiểu cơ bản, nhưng hãy xem lại phần Q&A để sắc bén hơn khi chốt sale.</span>";
-            } else {
-                iconEl.innerText = "📚";
-                msgEl.innerHTML = "<span class='text-red-600 dark:text-red-400'>Cần ôn tập thêm! Hãy đọc kỹ lại các Key value và phần Objection Handling.</span>";
-            }
-            
-            // Reset next button styling for retry
+            if (score >= 8) { iconEl.innerText = '🏆'; msgEl.innerHTML = `<span class='text-green-600 dark:text-green-400'>${p.quiz.messages.high}</span>`; }
+            else if (score >= 5) { iconEl.innerText = '💪'; msgEl.innerHTML = `<span class='text-yellow-600 dark:text-yellow-400'>${p.quiz.messages.mid}</span>`; }
+            else { iconEl.innerText = '📚'; msgEl.innerHTML = `<span class='text-red-600 dark:text-red-400'>${p.quiz.messages.low}</span>`; }
+            updateQuizStaticText();
             const nextBtn = document.getElementById('next-q-btn');
-            nextBtn.innerHTML = 'Câu Tiếp Theo <i class="fa-solid fa-arrow-right ml-2"></i>';
+            nextBtn.innerHTML = `${p.quiz.next} <i class="fa-solid fa-arrow-right ml-2"></i>`;
             nextBtn.classList.remove('bg-asn-red', 'hover:bg-red-700');
             nextBtn.classList.add('bg-gray-800', 'dark:bg-gray-600');
         }
-
     </script>
 </body>
 </html>
